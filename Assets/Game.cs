@@ -1,51 +1,70 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-// Static class, for general game-play mechanisms / data.
+// For general game-play mechanisms / data.
 public class Game : MonoBehaviour
 {
-  ArrayList pile1 = new ArrayList<Card>();
-  ArrayList pile2 = new ArrayList<Card>();
+  Tile[] board;
+  Card[] pile1 = new Card[20];
+  Card[] pile2 = new Card[20];
+  Player[] players;
 
   void Start()
   {
-    this.pile1 = this.pile1.shuffle();
-    this.pile2 = this.pile2.shuffle();
+    Debug.Log("Game initialization starting.");
+
+    // Initialize board.
+    int nTiles = 4 * 10;
+    this.board = new Tile[nTiles];
+    for (int i = 0; i < nTiles; i++)
+    {
+      switch (i)
+      {
+        case 0:
+          this.board[i] = new Tile(i);
+          // TODO: this.board[i] = new GoTile(i);
+          break;
+        case 10:
+          this.board[i] = new Tile(i);
+          // TODO: this.board[i] = new PrisonTile(i);
+          break;
+        default:
+          this.board[i] = new Tile(i);
+          break;
+      }
+    }
+
+    // Initialize players.
+    int nPlayers = 6;
+    this.players = new Player[nPlayers];
+    for (int i = 0; i < nPlayers; i++)
+    {
+      this.players[i] = new Player(i);
+      this.pile1 = Card.shuffle(this.pile1);
+      this.pile2 = Card.shuffle(this.pile2);
+    }
+
+    Debug.Log("Game starting.");
+    this.players[0].move(board);
   }
 
   void Update()
   {
-    // visual update of moves
+    int nActivePlayers = this.players
+      .Where(p => p.isActive())
+      .ToArray()
+      .Length;
+    if (nActivePlayers == 1)
+    {
+      this.End();
+    }
   }
 
-  void move(Player player)
+  void End()
   {
-    player.position = player.position + this.diceRoll();
-    if (player.position >= Board.length)
-    {
-      player.position = player.position % Board.length;
-      Player.crossGo();
 
-    }
-    Board[player.position].landingAction(player);
-  }
-
-  void diceRoll(int repetition = 1)
-  {
-    Random rnd = new Random();
-    int dice1 = rnd.Next(1, 7);
-    int dice2 = rnd.Next(1, 7);
-    int result = dice1 + dice2;
-    maxRepetitions = 3;
-    if (dice1 == dice2)
-    {
-      Player.prisoned = false;
-      if (repetition <= maxRepetitions)
-      {
-        result = result + this.diceRoll(repetition + 1);
-      }
-    }
   }
 
 }
