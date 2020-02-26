@@ -34,7 +34,7 @@ public class Player
         this.position = this.position % nTiles;
         this.crossGo();
       }
-      board[this.position].landingAction();
+      board[this.position].landingAction(this);
     }
     else
     {
