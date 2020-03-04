@@ -37,14 +37,14 @@ public class Game : MonoBehaviour
     }
 
     // Initialize players.
-    int nPlayers = 6;
+    int nPlayers = 4;
     this.players = new Player[nPlayers];
     for (int i = 0; i < nPlayers; i++)
     {
       this.players[i] = new Player(i);
-      this.pile1 = Card.shuffle(this.pile1);
-      this.pile2 = Card.shuffle(this.pile2);
     }
+    this.pile1 = Card.shuffle(this.pile1);
+    this.pile2 = Card.shuffle(this.pile2);
 
     Debug.Log("Game starting.");
     this.players[0].move(board);
@@ -59,7 +59,7 @@ public class Game : MonoBehaviour
   {
     for (int playerId = 0; playerId < players.Length; playerId++)
     {
-      GameObject playerToken = GameObject.Find("player" + playerId);
+      GameObject playerToken = GameObject.Find("player" + (playerId + 1));
       int[] XZ = players[playerId].getXZ(this.board);
       playerToken.transform.position = new Vector3(XZ[0], 0, XZ[1]);
     }
