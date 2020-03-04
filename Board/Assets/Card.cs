@@ -20,4 +20,9 @@ public class Card : MonoBehaviour
   {
     return pile;
   }
+
+  public static void draw()
+  {
+
+  }
 }
