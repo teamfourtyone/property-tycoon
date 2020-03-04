@@ -73,31 +73,31 @@
     <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
     <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
     <Reference Include="Unity.ProBuilder">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.ProBuilder.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.Editor">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.ProBuilder.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -301,13 +301,13 @@
       <HintPath>D:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/Board/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/Program Files (x86)/My Documents/University o Sussex/Year 2/Software Engineering/property-tycoon/Board/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/Program Files (x86)/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
