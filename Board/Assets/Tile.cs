@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // TODO: Make this an abstract class, create inheriting child classes for Go Tile, Street Tile, etc.
-public class Tile
+public abstract class Tile
 {
-  public int id;
-  public Tile(int id)
+    public int owner;
+    public int id;
+    public Tile(int id)
   {
     this.id = id;
   }
