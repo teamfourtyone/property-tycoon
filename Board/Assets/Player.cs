@@ -10,7 +10,7 @@ public class Player
   public int nGoPasses = 0;
   public int prisonDuration = 0;
   public bool surrendered = false;
-  // Property[] properties = new Property[]();
+  //  Property[] properties = new Property[]();
 
   public Player(int id)
   {
