@@ -15,9 +15,9 @@ public class TileStreet : Tile
     owner = 0;
   }
 
-  public new void landingAction(Player currentPlayer)
+  public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
   {
-    Debug.Log("Landed on tile " + id + ".");
+    Debug.Log("Player " + currentPlayer.id + " landed on street tile " + this.id + ".");
     if (owner != 0)
     {
 
@@ -46,6 +46,7 @@ public class TileStreet : Tile
       //BUY
       this.buy(currentPlayer);
     }
+    nextPlayer.move(board);
   }
 
   public void upgrade(Player player)

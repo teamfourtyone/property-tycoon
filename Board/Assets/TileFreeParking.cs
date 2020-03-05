@@ -10,11 +10,12 @@ public class TileFreeParking : Tile
 
   }
 
-  public new void landingAction(Player currentPlayer)
+  public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
   {
-    Debug.Log("Landed on tile " + id + ".");
+    Debug.Log("Player " + currentPlayer.id + " landed on free parking tile " + this.id + ".");
     currentPlayer.balance += this.balance;
     this.balance = 0;
+    nextPlayer.move(board);
   }
 
 }

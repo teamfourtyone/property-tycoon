@@ -8,9 +8,11 @@ public class TileDraw : Tile
   {
 
   }
-  public new void landingAction(Player currentPlayer)
+  public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
   {
+    Debug.Log("Player " + currentPlayer.id + " landed on card draw tile " + this.id + ".");
     Card.draw();
+    nextPlayer.move(board);
   }
 
 }

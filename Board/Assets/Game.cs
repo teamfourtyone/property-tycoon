@@ -60,7 +60,7 @@ public class Game : MonoBehaviour
 
   void Update()
   {
-    if (step > 1)
+    if (step > 0.2)
     {
       // Perform token animations.
       for (int playerId = 0; playerId < players.Length; playerId++)
