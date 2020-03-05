@@ -26,14 +26,15 @@ public class Game : MonoBehaviour
           this.board[i] = new TileGo(i);
           break;
         case 5:
+        case 15:
+        case 25:
+        case 35:
+          this.board[i] = new TileDraw(i);
+          break;
         case 10:
-          this.board[i] = new TileDraw();
-        case 10:
-          this.board[i] = new Tile(i);
+          this.board[i] = new TileStreet(i);
           // TODO: this.board[i] = new PrisonTile(i);
           break;
-        case 20:
-          this.board[i] = new TileGo();
         default:
           this.board[i] = new TileStreet(i);
           break;

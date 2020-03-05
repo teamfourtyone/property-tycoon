@@ -16,24 +16,4 @@ public abstract class Tile
     {
         Debug.Log("Player " + this.id + "landed on tile " + id + ".");
     }
-
-    public void buy(Player currentPlayer)
-    {
-        
-        owner = currentPlayer.id; 
-    }
-
-    public void upgrade(Player currentPlayer)
-    {
-
-    }
-
-    public void mortgage(Player currentPlayer)
-    {
-
-    }
-    public void sell(Player currentPlayer)
-    {
-
-    }
 }

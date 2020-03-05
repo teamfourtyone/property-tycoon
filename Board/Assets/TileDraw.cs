@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class TileDraw : Tile
 {
-    public void landingAction(Player currentPlayer)
-    {
-        Card.draw();
-    }
-   
+  public TileDraw(int id) : base(id)
+  {
+
+  }
+  public new void landingAction(Player currentPlayer)
+  {
+    Card.draw();
+  }
+
 }

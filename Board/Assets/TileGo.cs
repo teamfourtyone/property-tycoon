@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class TileGo : Tile
 {
-    public void landingAction(Player currentPlayer)
-    {
-        Debug.Log("Landed on tile " + id + ".");
-        currentPlayer.crossGo();
-    }
+  public TileGo(int id) : base(id)
+  {
+
+  }
+  public new void landingAction(Player currentPlayer)
+  {
+    Debug.Log("Landed on tile " + id + ".");
+    currentPlayer.crossGo();
+  }
 }
 
 

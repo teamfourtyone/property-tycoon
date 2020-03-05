@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class TileFreeParking : Tile
 {
-    public int balance;
+  public int balance;
+  public TileFreeParking(int id) : base(id)
+  {
 
-    public void landingAction(Player currentPlayer)
-    {
-        Debug.Log("Landed on tile " + id + ".");
-        currentPlayer.balance += this.balance;
-        this.balance = 0;
-    }
+  }
+
+  public new void landingAction(Player currentPlayer)
+  {
+    Debug.Log("Landed on tile " + id + ".");
+    currentPlayer.balance += this.balance;
+    this.balance = 0;
+  }
 
 }

@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TileStreet : Tile
 {
@@ -9,14 +8,14 @@ public class TileStreet : Tile
   public int orininalPrice;
   public int curPrice;
 
-  public TileStreet()
+  public TileStreet(int id) : base(id)
   {
     numHouses = 0;
     mortgaged = false;
     owner = 0;
   }
 
-  public void landingAction(Player currentPlayer)
+  public new void landingAction(Player currentPlayer)
   {
     Debug.Log("Landed on tile " + id + ".");
     if (owner != 0)
@@ -29,7 +28,7 @@ public class TileStreet : Tile
         if (upgrade)
         {
           //popup yes/no
-          upgrade(currentPlayer);
+          this.upgrade(currentPlayer);
         }
       }
       else
@@ -38,14 +37,27 @@ public class TileStreet : Tile
         if (currentPlayer.balance <= 0)
         {
           //START MORTGAGE
-          mortgage(currentPlayer);
+          this.mortgage(currentPlayer);
         }
       }
     }
     else
     {
       //BUY
-      buy(currentPlayer);
+      this.buy(currentPlayer);
     }
+  }
+
+  public void upgrade(Player player)
+  {
+
+  }
+  public void mortgage(Player currentPlayer)
+  {
+
+  }
+  public void buy(Player currentPlayer)
+  {
+
   }
 }
