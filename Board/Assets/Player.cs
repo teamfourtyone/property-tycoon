@@ -15,7 +15,6 @@ public class Player
   public Player(int id)
   {
     this.id = id;
-    Debug.Log("Player " + id + " created.");
   }
 
   public void move(Tile[] board, int repetition = 1)
@@ -27,13 +26,7 @@ public class Player
     if (prisonDuration == 0 || dice1 == dice2)
     {
       this.prisonDuration = 0;
-      this.position = this.position + result;
-      int nTiles = board.Length;
-      if (this.position >= nTiles)
-      {
-        this.position = this.position % nTiles;
-        this.crossGo();
-      }
+      this.setPosition(this.position + result, board);
       board[this.position].landingAction(this);
     }
     else
@@ -51,24 +44,35 @@ public class Player
     return this.position;
   }
 
-  public int[] getXZ(Tile[] board)
+  public void setPosition(int position, Tile[] board)
+  {
+    int nTiles = board.Length;
+    if (this.position >= nTiles)
+    {
+      position = this.position % nTiles;
+      this.crossGo();
+    }
+    this.position = position;
+  }
+
+  public double[] getXZ(Tile[] board)
   {
     int rowLength = board.Length / 4;
-    if (this.getPosition() <= rowLength)
+    if (this.getPosition() < rowLength)
     {
-      return new int[] { 0, this.getPosition() };
+      return new double[] { 0.5, this.getPosition() + 0.5 };
     }
-    else if (this.getPosition() <= rowLength * 2)
+    else if (this.getPosition() < rowLength * 2)
     {
-      return new int[] { this.getPosition() % rowLength, rowLength };
+      return new double[] { (this.getPosition() % rowLength) + 0.5, rowLength + 0.5 };
     }
-    else if (this.getPosition() <= rowLength * 3)
+    else if (this.getPosition() < rowLength * 3)
     {
-      return new int[] { rowLength, rowLength - (this.getPosition() % (2 * rowLength)) };
+      return new double[] { rowLength + 0.5, rowLength - (this.getPosition() % (rowLength * 2)) + 0.5 };
     }
     else
     {
-      return new int[] { 0, rowLength - (this.getPosition() % (rowLength * 3)) };
+      return new double[] { rowLength - (this.getPosition() % (rowLength * 3)) + 0.5, 0.5 };
     }
   }
 

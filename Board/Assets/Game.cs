@@ -37,7 +37,7 @@ public class Game : MonoBehaviour
     }
 
     // Initialize players.
-    int nPlayers = 4;
+    int nPlayers = 6;
     this.players = new Player[nPlayers];
     for (int i = 0; i < nPlayers; i++)
     {
@@ -47,12 +47,6 @@ public class Game : MonoBehaviour
     this.pile2 = Card.shuffle(this.pile2);
 
     Debug.Log("Game starting.");
-    this.players[0].move(board);
-    this.players[1].move(board);
-    this.players[2].move(board);
-    this.players[0].move(board);
-    this.players[1].move(board);
-    this.players[0].move(board);
   }
 
   void Update()
@@ -60,8 +54,13 @@ public class Game : MonoBehaviour
     for (int playerId = 0; playerId < players.Length; playerId++)
     {
       GameObject playerToken = GameObject.Find("player" + (playerId + 1));
-      int[] XZ = players[playerId].getXZ(this.board);
-      playerToken.transform.position = new Vector3(XZ[0], 0, XZ[1]);
+      double[] XZ = players[playerId].getXZ(this.board);
+      int scaleFactor = 2; // to adjust because the board size is 20 and not 10
+      playerToken.transform.position = new Vector3(
+        (float)(scaleFactor * (XZ[0] - 0.25 + playerId * 0.1)),
+        0,
+        (float)(scaleFactor * (XZ[1] - 0.25 + playerId * 0.1))
+      );
     }
     int nActivePlayers = this.players
       .Where(p => p.isActive())
