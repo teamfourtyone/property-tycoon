@@ -11,7 +11,8 @@ public class Tile
     this.id = id;
   }
 
-  public void landingAction(Player currentPlayer) {
-    Debug.Log("Player " + currentPlayer.id + "landed on tile " + this.id + ".");
+  public void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board) {
+    Debug.Log("Player " + currentPlayer.id + " landed on tile " + this.id + ".");
+    nextPlayer.move(board);
   }
 }

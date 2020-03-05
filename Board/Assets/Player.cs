@@ -5,7 +5,10 @@ using UnityEngine;
 public class Player
 {
   public int id;
+  // Theoretical position (during an animation that is the position where the token is when the animation ends.)
   private int position = 0;
+  // Temporary position during an animation, otherwise identical with theoretical position.
+  private int animatedPosition;
   public int balance = 1500;
   public int nGoPasses = 0;
   public int prisonDuration = 0;
@@ -27,7 +30,6 @@ public class Player
     {
       this.prisonDuration = 0;
       this.setPosition(this.position + result, board);
-      board[this.position].landingAction(this);
     }
     else
     {
@@ -54,25 +56,31 @@ public class Player
     }
     this.position = position;
   }
+  public int getAnimatedPosition() {
+    return this.animatedPosition;
+  }
+  public void setAnimatedPosition(int animatedPosition) {
+    this.animatedPosition = animatedPosition;
+  }
 
-  public double[] getXZ(Tile[] board)
+  public static double[] getXZ(int position, Tile[] board)
   {
     int rowLength = board.Length / 4;
-    if (this.getPosition() < rowLength)
+    if (position < rowLength)
     {
-      return new double[] { 0.5, this.getPosition() + 0.5 };
+      return new double[] { 0.5, position + 0.5 };
     }
-    else if (this.getPosition() < rowLength * 2)
+    else if (position < rowLength * 2)
     {
-      return new double[] { (this.getPosition() % rowLength) + 0.5, rowLength + 0.5 };
+      return new double[] { (position % rowLength) + 0.5, rowLength + 0.5 };
     }
-    else if (this.getPosition() < rowLength * 3)
+    else if (position < rowLength * 3)
     {
-      return new double[] { rowLength + 0.5, rowLength - (this.getPosition() % (rowLength * 2)) + 0.5 };
+      return new double[] { rowLength + 0.5, rowLength - (position % (rowLength * 2)) + 0.5 };
     }
     else
     {
-      return new double[] { rowLength - (this.getPosition() % (rowLength * 3)) + 0.5, 0.5 };
+      return new double[] { rowLength - (position % (rowLength * 3)) + 0.5, 0.5 };
     }
   }
 

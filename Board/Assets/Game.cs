@@ -10,6 +10,8 @@ public class Game : MonoBehaviour
   Card[] pile1 = new Card[20];
   Card[] pile2 = new Card[20];
   Player[] players;
+  double time = 0;
+  double step = 0;
 
   void Start()
   {
@@ -47,29 +49,47 @@ public class Game : MonoBehaviour
     this.pile2 = Card.shuffle(this.pile2);
 
     Debug.Log("Game starting.");
+
+    players[0].move(board);
   }
 
   void Update()
   {
-    for (int playerId = 0; playerId < players.Length; playerId++)
+    if (step > 1)
     {
-      GameObject playerToken = GameObject.Find("player" + (playerId + 1));
-      double[] XZ = players[playerId].getXZ(this.board);
-      int scaleFactor = 2; // to adjust because the board size is 20 and not 10
-      playerToken.transform.position = new Vector3(
-        (float)(scaleFactor * (XZ[0] - 0.25 + playerId * 0.1)),
-        0,
-        (float)(scaleFactor * (XZ[1] - 0.25 + playerId * 0.1))
-      );
+      // Perform token animations.
+      for (int playerId = 0; playerId < players.Length; playerId++)
+      {
+        Player player = players[playerId];
+        if (player.getAnimatedPosition() != player.getPosition())
+        {
+          player.setAnimatedPosition(player.getAnimatedPosition() + 1);
+          GameObject playerToken = GameObject.Find("player" + (playerId + 1));
+          double[] XZ = Player.getXZ(player.getAnimatedPosition(), this.board);
+          int scaleFactor = 2; // to adjust because the board size is 20 and not 10
+          playerToken.transform.position = new Vector3(
+            (float)(scaleFactor * (XZ[0] - 0.25 + playerId * 0.1)),
+            0,
+            (float)(scaleFactor * (XZ[1] - 0.25 + playerId * 0.1))
+          );
+          if (player.getAnimatedPosition() == player.getPosition()) {
+            board[player.getPosition()].landingAction(player, players[(playerId + 1) % 6], board);
+          }
+        }
+      }
+      // Check whether the game is over.
+      int nActivePlayers = this.players
+        .Where(p => p.isActive())
+        .ToArray()
+        .Length;
+      if (nActivePlayers == 1)
+      {
+        this.End();
+      }
+      step = 0;
     }
-    int nActivePlayers = this.players
-      .Where(p => p.isActive())
-      .ToArray()
-      .Length;
-    if (nActivePlayers == 1)
-    {
-      this.End();
-    }
+    time = time + Time.deltaTime;
+    step = step + Time.deltaTime;
   }
 
   void End()
