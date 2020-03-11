@@ -49,6 +49,7 @@ public class Game : MonoBehaviour
     for (int i = 0; i < nPlayers; i++)
     {
       this.players[i] = new Player(i);
+      this.players[i].setPosition(0);
     }
     this.pile1 = Card.shuffle(this.pile1);
     this.pile2 = Card.shuffle(this.pile2);
@@ -68,13 +69,13 @@ public class Game : MonoBehaviour
         Player player = players[playerId];
         if (player.getAnimatedPosition() != player.getPosition())
         {
-          player.setAnimatedPosition(player.getAnimatedPosition() + 1);
+          player.setAnimatedPosition((player.getAnimatedPosition() + 1) % board.Length);
           GameObject playerToken = GameObject.Find("player" + (playerId + 1));
           double[] XZ = Player.getXZ(player.getAnimatedPosition(), this.board);
           int scaleFactor = 2; // to adjust because the board size is 20 and not 10
           playerToken.transform.position = new Vector3(
             (float)(scaleFactor * (XZ[0] - 0.25 + playerId * 0.1)),
-            0,
+            5,
             (float)(scaleFactor * (XZ[1] - 0.25 + playerId * 0.1))
           );
           if (player.getAnimatedPosition() == player.getPosition()) {

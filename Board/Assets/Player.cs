@@ -48,13 +48,11 @@ public class Player
 
   public void setPosition(int position, Tile[] board)
   {
-    int nTiles = board.Length;
-    if (this.position >= nTiles)
+    if (position >= board.Length)
     {
-      position = this.position % nTiles;
       this.crossGo();
     }
-    this.position = position;
+    this.position = position % board.Length;
   }
   public int getAnimatedPosition() {
     return this.animatedPosition;
