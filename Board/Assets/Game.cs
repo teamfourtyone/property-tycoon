@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
     for (int i = 0; i < nPlayers; i++)
     {
       this.players[i] = new Player(i);
-      this.players[i].setPosition(0);
+      this.players[i].setPosition(0, board);
     }
     this.pile1 = Card.shuffle(this.pile1);
     this.pile2 = Card.shuffle(this.pile2);
