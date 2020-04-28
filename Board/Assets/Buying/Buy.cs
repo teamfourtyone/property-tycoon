@@ -5,29 +5,56 @@ using UnityEngine.UI;
 
 public class Buy : MonoBehaviour
 {
-   
-    bool buying = false;
-    bool open = false;
-    int i = 0;
+
     public GameObject box;
     public GameObject texty;
     public GameObject noBut;
     public GameObject yesBut;
     public int choiceMade= 0;
-
+    public bool run = false;
     
     public void Start()
     {
-        open = true;
-        //makes BuyCanvas + children visable
-        //GetComponent<CanvasGroup>().alpha = 1f;
+        box.SetActive(false); // or false
+        Debug.Log("buy intialised");
+        enabled = false;
     }
 
-    
-    public void NoButPress()
+    void OnDisable()
+    {
+        Debug.Log("buy disabled");
+        box.SetActive(false); // or false
+        noBut.SetActive(false);
+        yesBut.SetActive(false);      
+        choiceMade = 0;
+    }
+
+    void OnEnable()
+    {
+        
+        Debug.Log("buy enabled");
+        choiceMade = 0;
+        texty.GetComponent<Text>().text = "Would you like to buy this property?";
+        box.SetActive(true); // or false
+        noBut.SetActive(true);
+        yesBut.SetActive(true);
+        //Debug.Log("pausing game");
+        Time.timeScale = 0f;
+        if (run == false)
+        {
+            Time.timeScale = 1f;
+            run = true;
+            Debug.Log("unpausing game");
+        }
+
+    }
+
+
+        public void NoButPress()
     {
         texty.GetComponent<Text>().text = "To Auction!";
         choiceMade = 1;
+        
     }  
 
     public void YesButPress()
