@@ -16,13 +16,13 @@ public class Buy : MonoBehaviour
     public void Start()
     {
         box.SetActive(false); // or false
-        Debug.Log("buy intialised");
+       // Debug.Log("buy intialised");
         enabled = false;
     }
 
     void OnDisable()
     {
-        Debug.Log("buy disabled");
+       // Debug.Log("buy disabled");
         box.SetActive(false); // or false
         noBut.SetActive(false);
         yesBut.SetActive(false);      
@@ -32,19 +32,19 @@ public class Buy : MonoBehaviour
     void OnEnable()
     {
         
-        Debug.Log("buy enabled");
+        //Debug.Log("buy enabled");
         choiceMade = 0;
         texty.GetComponent<Text>().text = "Would you like to buy this property?";
         box.SetActive(true); // or false
         noBut.SetActive(true);
         yesBut.SetActive(true);
         //Debug.Log("pausing game");
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         if (run == false)
         {
             Time.timeScale = 1f;
             run = true;
-            Debug.Log("unpausing game");
+           // Debug.Log("unpausing game");
         }
 
     }

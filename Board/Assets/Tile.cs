@@ -8,12 +8,12 @@ public abstract class Tile: MonoBehaviour
     public int owner;
     public int id ;
     public int numHouses;
-
+    
     public abstract void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board);
    
     public void buy(Player currentPlayer)
     {
-        Debug.Log(currentPlayer);
+        Debug.Log(currentPlayer+" buying "+ id);
         owner = currentPlayer.getId();
         currentPlayer.cards.Add(id);
 
@@ -32,8 +32,5 @@ public abstract class Tile: MonoBehaviour
     {
 
     }
-    public void nextp(Player nextPlayer, Tile[] board)
-    {
-        nextPlayer.move(board);
-    }
+    
 }

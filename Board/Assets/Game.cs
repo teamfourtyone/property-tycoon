@@ -7,7 +7,7 @@ using System.Linq;
 public class Game : MonoBehaviour
 {
     public static Game Instance;
-    Tile[] board;
+    public Tile[] board;
     Card[] pile1 = new Card[20];
     Card[] pile2 = new Card[20];
     public Player[] players;
@@ -82,11 +82,11 @@ public class Game : MonoBehaviour
             for (int playerId = 0; playerId < players.Length; playerId++)
             {
                 Player player = players[playerId];
-                Debug.Log("wrong1");
+               // Debug.Log("wrong1");
                 if (player.getAnimatedPosition() != player.getPosition())
                 {
-                    Debug.Log("moving?");
-                    Debug.Log("mov board length  " + board.Length);
+                   // Debug.Log("moving?");
+                    //Debug.Log("mov board length  " + board.Length);
                     player.setAnimatedPosition((player.getAnimatedPosition() + 1) % board.Length);
                     GameObject playerToken = GameObject.Find("player" + (playerId + 1));
                     double[] XZ = Player.getXZ(player.getAnimatedPosition(), this.board);
@@ -96,13 +96,13 @@ public class Game : MonoBehaviour
                       5,
                       (float)(scaleFactor * (XZ[1] - 0.25 + playerId * 0.1))
                     );
-                    Debug.Log("wrong2");
+                    //Debug.Log("wrong2");
                     if (player.getAnimatedPosition() == player.getPosition())
                     {
-                        Debug.Log("wrong3");
+                        //Debug.Log("wrong3");
                         board[player.getPosition()].landingAction(player, players[(playerId + 1) % 6], board);
-                        Debug.Log("thr board length  " + board.Length);
-                        Debug.Log("throw to landing");
+                       // Debug.Log("thr board length  " + board.Length);
+                      //  Debug.Log("throw to landing");
                     }
                 }
             }

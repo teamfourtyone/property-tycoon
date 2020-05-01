@@ -62,8 +62,8 @@ public class Player
     {
       this.crossGo();
     }
-        Debug.Log("position "+ position);
-        Debug.Log("board.Length " + board.Length);
+       // Debug.Log("position "+ position);
+       // Debug.Log("board.Length " + board.Length);
         this.position = position % board.Length;
   }
   public int getAnimatedPosition() {

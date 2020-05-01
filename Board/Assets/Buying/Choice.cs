@@ -27,7 +27,7 @@ public class Choice : MonoBehaviour
 
     void OnEnable()
     {
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
         choiceMade = 0;
         box.SetActive(true); // or false
         passBut.SetActive(true);

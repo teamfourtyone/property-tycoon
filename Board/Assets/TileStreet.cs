@@ -12,7 +12,7 @@ public class TileStreet : Tile
     public GameObject go;
     public static Player landedPlayer;
     public static Player nextPlayerr;
-    public Tile[] boardy;
+    public static Tile[] boardy;
     public bool ready;
  
     public TileStreet(int i)
@@ -24,31 +24,25 @@ public class TileStreet : Tile
        
     }
 
-  
     public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
     {
 
-       // Time.timeScale = 0f;
+        Time.timeScale = 0f;
         go = GameObject.Find("GameController");
 
         landedPlayer = currentPlayer;
         nextPlayerr = nextPlayer;
         boardy = board;
 
-        Debug.Log("LLLLLLLLLLL"+currentPlayer.getId());
-        
-        Debug.Log(go.GetComponent<Buy>().choiceMade);
-        Debug.Log("confirmed choise made working" + go.GetComponent<Choice>().choiceMade);
-        ready = false;
+
         Debug.Log("Landed on tile " + id + ".");
+  
         if (owner != 0)
         {
             landedPlayer = currentPlayer;
             if (currentPlayer.id == owner)
             {
                 Debug.Log("upgrade?");
-                //popup upgrade pass?
-                //choice = 1;
                 go.GetComponent<Choice>().enabled = true;
 
             }
@@ -72,22 +66,24 @@ public class TileStreet : Tile
            go.GetComponent<Auction>().enabled = true;
             go.GetComponent<Auction>().enabled = false;
 
-
-            Debug.Log("fucked");
         }
-  
-       // nextPlayer.move(board);
+
+    }
+
+    public void nextp()
+    {
+        nextPlayerr.move(boardy);
     }
 
     void Update()
     {
-        //Debug.Log("CURRUNT CHOICEEE" + GameObject.Find("GameController").GetComponent<Buy>().choiceMade);
+        //Debug.Log("CURRENT CHOICEE" + GameObject.Find("GameController").GetComponent<Buy>().choiceMade);
         if (go.GetComponent<Choice>().choiceMade == 1)
         {           
                 go.GetComponent<Choice>().enabled = false;
                 Debug.Log("skipping");
                 Time.timeScale = 1f;
-                nextp(nextPlayerr, boardy);
+                nextp();
 
         }
         if (go.GetComponent<Choice>().choiceMade == 2)
@@ -96,7 +92,7 @@ public class TileStreet : Tile
             go.GetComponent<Choice>().enabled = false;
             Debug.Log("upgrading");
             Time.timeScale = 1f;
-            nextp(nextPlayerr, boardy);
+            nextp();
         }
 
             if (go.GetComponent<Auction>().finished == true)
@@ -106,7 +102,7 @@ public class TileStreet : Tile
             choice = 0;
             Debug.Log("returns auction");
             Time.timeScale = 1f;
-            nextp(nextPlayerr, boardy);
+            nextp();
         }
                     
         if (go.GetComponent<Buy>().choiceMade == 1)
@@ -129,7 +125,8 @@ public class TileStreet : Tile
                 choice = 0;
                 Debug.Log("returns choise 2");
                 Time.timeScale = 1f;
-            nextp(nextPlayerr, boardy);
+            Debug.Log("update board  "+ boardy.Length);
+            nextp();
         }
         
     }

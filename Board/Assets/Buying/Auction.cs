@@ -22,14 +22,14 @@ public class Auction : MonoBehaviour
       //  Debug.Log("auction intialised");
        // enabled = false;
 
-        Debug.Log("auction enableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+       // Debug.Log("auction enableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         count = 0;
         enabled = false;
     }
 
     void OnDisable()
     {
-        Debug.Log("auction diasssableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+        //Debug.Log("auction diasssableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         heading.SetActive(false); // or false
         entry.SetActive(false); // or false
         confirmBut.SetActive(false); // or false
@@ -40,7 +40,7 @@ public class Auction : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log("auction enableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+        //Debug.Log("auction enableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         count = 0;
         heading.SetActive(true); // or false
         entry.SetActive(true); // or false
