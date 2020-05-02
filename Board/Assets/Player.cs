@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player
 {
-  public int id;
+    public int id;
   // Theoretical position (during an animation that is the position where the token is when the animation ends.)
   private int position = 0;
   // Temporary position during an animation, otherwise identical with theoretical position.
@@ -13,12 +13,15 @@ public class Player
   public int nGoPasses = 0;
   public int prisonDuration = 0;
   public bool surrendered = false;
-  //  Property[] properties = new Property[]();
+ 
+    public ArrayList cards = new ArrayList();
 
-  public Player(int id)
+  
+
+    public Player(int id)
   {
     this.id = id;
-  }
+    }
 
   public void move(Tile[] board, int repetition = 1)
   {
@@ -41,7 +44,12 @@ public class Player
     }
   }
 
-  public int getPosition()
+    public int getId()
+    {
+        return this.id;
+    }
+
+    public int getPosition()
   {
     return this.position;
   }
@@ -52,7 +60,9 @@ public class Player
     {
       this.crossGo();
     }
-    this.position = position % board.Length;
+       // Debug.Log("position "+ position);
+       // Debug.Log("board.Length " + board.Length);
+        this.position = position % board.Length;
   }
   public int getAnimatedPosition() {
     return this.animatedPosition;
@@ -92,4 +102,5 @@ public class Player
   {
     return balance > 0 && !this.surrendered;
   }
+    
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 public class TileFreeParking : Tile
 {
   public int balance;
-  public TileFreeParking(int id) : base(id)
+  public TileFreeParking(int i)
   {
-
+        id = i;
   }
 
   public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)

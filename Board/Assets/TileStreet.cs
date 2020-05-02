@@ -1,64 +1,135 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
-public class TileStreet : Tile
-{
-  public string colour;
-  public int numHouses;
-  public bool mortgaged;
-  public int orininalPrice;
-  public int curPrice;
+public class TileStreet : Tile 
+{ 
+    public string colour;   
+    public bool mortgaged;
+    public int orininalPrice;
+    public int curPrice;
 
-  public TileStreet(int id) : base(id)
-  {
-    numHouses = 0;
-    mortgaged = false;
-    owner = 0;
-  }
+    public int choice;
+    public GameObject go;
+    public static Player landedPlayer;
+    public static Player nextPlayerr;
+    public static Tile[] boardy;
+    public bool ready;
+ 
+    public TileStreet(int i)
+    {
+        numHouses = 0;
+        mortgaged = false;
+        owner = 0;
+        id = i;
+       
+    }
 
-  public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
-  {
-    Debug.Log("Player " + currentPlayer.id + " landed on street tile " + this.id + ".");
-    if (owner != 0)
+    public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
     {
 
-      if (currentPlayer.id == owner)
-      {
-        Debug.Log("upgrade?");
-        bool upgrade = true;
-        if (upgrade)
+        Time.timeScale = 0f;
+        go = GameObject.Find("GameController");
+
+        landedPlayer = currentPlayer;
+        nextPlayerr = nextPlayer;
+        boardy = board;
+
+
+        Debug.Log("Landed on tile " + id + ".");
+  
+        if (owner != 0)
         {
-          //popup yes/no
-          this.upgrade(currentPlayer);
+            landedPlayer = currentPlayer;
+            if (currentPlayer.id == owner)
+            {
+                Debug.Log("upgrade?");
+                go.GetComponent<Choice>().enabled = true;
+
+            }
+            else
+            {
+                currentPlayer.balance -= this.curPrice;
+                if (currentPlayer.balance <= 0)
+                {
+                    //START MORTGAGE TODO
+                    mortgage(currentPlayer);
+                }
+            }
         }
-      }
-      else
-      {
-        currentPlayer.balance -= this.curPrice;
-        if (currentPlayer.balance <= 0)
+        else
         {
-          //START MORTGAGE
-          this.mortgage(currentPlayer);
+            //BUY
+            Debug.Log("choice 3");
+            choice = 3;
+            Debug.Log("run buy");
+            go.GetComponent<Buy>().enabled = true;
+           go.GetComponent<Auction>().enabled = true;
+            go.GetComponent<Auction>().enabled = false;
+
         }
-      }
+
     }
-    else
+
+    public void nextp()
     {
-      //BUY
-      this.buy(currentPlayer);
+        nextPlayerr.move(boardy);
     }
-    nextPlayer.move(board);
-  }
 
-  public void upgrade(Player player)
-  {
+    void Update()
+    {
+        //Debug.Log("CURRENT CHOICEE" + GameObject.Find("GameController").GetComponent<Buy>().choiceMade);
+        if (go.GetComponent<Choice>().choiceMade == 1)
+        {           
+                go.GetComponent<Choice>().enabled = false;
+                Debug.Log("skipping");
+                Time.timeScale = 1f;
+                nextp();
 
-  }
-  public void mortgage(Player currentPlayer)
-  {
+        }
+        if (go.GetComponent<Choice>().choiceMade == 2)
+        {
+            upgrade();
+            go.GetComponent<Choice>().enabled = false;
+            Debug.Log("upgrading");
+            Time.timeScale = 1f;
+            nextp();
+        }
 
-  }
-  public void buy(Player currentPlayer)
-  {
+            if (go.GetComponent<Auction>().finished == true)
+        {
+            buy(go.GetComponent<Auction>().auctWin);
+            go.GetComponent<Auction>().enabled = false;
+            choice = 0;
+            Debug.Log("returns auction");
+            Time.timeScale = 1f;
+            nextp();
+        }
+                    
+        if (go.GetComponent<Buy>().choiceMade == 1)
+            {
+            Debug.Log("choise 1 has been accepted");
 
-  }
+            go.GetComponent<Buy>().enabled = false;
+            go.GetComponent<Auction>().enabled = true;
+            
+            //buy(go.GetComponent<Auction>().auctWin);
+            choice = 0;
+            Debug.Log("returns choise 1");
+        }
+            if (go.GetComponent<Buy>().choiceMade == 2)
+            {
+                Debug.Log("returns choise 2 has been accepted");
+                //buy
+                buy(landedPlayer);
+                go.GetComponent<Buy>().enabled = false;
+                choice = 0;
+                Debug.Log("returns choise 2");
+                Time.timeScale = 1f;
+            Debug.Log("update board  "+ boardy.Length);
+            nextp();
+        }
+        
+    }
 }
+
+    
