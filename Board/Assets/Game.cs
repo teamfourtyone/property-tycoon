@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
     public Player[] players;
     double time = 0;
     double step = 0;
+    public Player curplayer;
 
     void Start()
     {
@@ -100,6 +101,7 @@ public class Game : MonoBehaviour
                     if (player.getAnimatedPosition() == player.getPosition())
                     {
                         //Debug.Log("wrong3");
+                        curplayer = player;
                         board[player.getPosition()].landingAction(player, players[(playerId + 1) % 6], board);
                        // Debug.Log("thr board length  " + board.Length);
                       //  Debug.Log("throw to landing");

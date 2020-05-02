@@ -10,7 +10,9 @@ public class Buy : MonoBehaviour
     public GameObject texty;
     public GameObject noBut;
     public GameObject yesBut;
+    public GameObject contBut;
     public int choiceMade= 0;
+    public int tempChoiceMade = 0;
     public bool run = false;
     
     public void Start()
@@ -25,8 +27,10 @@ public class Buy : MonoBehaviour
        // Debug.Log("buy disabled");
         box.SetActive(false); // or false
         noBut.SetActive(false);
-        yesBut.SetActive(false);      
+        yesBut.SetActive(false);
+        contBut.SetActive(false);
         choiceMade = 0;
+        tempChoiceMade = 0;
     }
 
     void OnEnable()
@@ -53,21 +57,26 @@ public class Buy : MonoBehaviour
         public void NoButPress()
     {
         texty.GetComponent<Text>().text = "To Auction!";
-        choiceMade = 1;
+        tempChoiceMade = 1;
         
     }  
 
     public void YesButPress()
     {
         texty.GetComponent<Text>().text = "Congratulations on Your Purchase";
-        choiceMade = 2;
+        tempChoiceMade = 2;
+    }
+    public void ContButPress()
+    {       
+        choiceMade = tempChoiceMade;
     }
 
     // Update is called once per frame
     void Update()
     {
-         if (choiceMade >= 1)
+         if (tempChoiceMade >= 1)
         {
+            contBut.SetActive(true);
             noBut.SetActive(false);
             yesBut.SetActive(false);
         }

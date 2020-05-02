@@ -10,10 +10,12 @@ public class Auction : MonoBehaviour
     public GameObject heading;
     public GameObject entry;
     public GameObject confirmBut;
+    public GameObject contBut;
     public int count;
     int[] bidArray = new int[6];  //need to change to curNumOfPlayers
     public Player auctWin;
     public bool finished = false;
+    public bool tempFinished = false;
 
     public void Start()
 
@@ -34,9 +36,10 @@ public class Auction : MonoBehaviour
         entry.SetActive(false); // or false
         confirmBut.SetActive(false); // or false
         panel.SetActive(false);
+        contBut.SetActive(false);
         finished = false;
-
-    }
+        tempFinished = false;
+}
 
     void OnEnable()
     {
@@ -46,6 +49,7 @@ public class Auction : MonoBehaviour
         entry.SetActive(true); // or false
         confirmBut.SetActive(true); // or false
         panel.SetActive(true);
+        contBut.SetActive(false);
         heading.GetComponent<Text>().text = "Player " + (count + 1) + ", please make your bid.";
 
     }
@@ -95,7 +99,10 @@ public class Auction : MonoBehaviour
                     {
                         heading.GetComponent<Text>().text = "Player " + (i + 1) + ", won with a bid of £" + max;
                         auctWin = Game.Instance.players[i]; //access problems
-                        finished = true;
+                        tempFinished = true;
+                        entry.SetActive(false);
+                        confirmBut.SetActive(false);
+                        contBut.SetActive(true);
                     }
                 }
             }
@@ -107,6 +114,10 @@ public class Auction : MonoBehaviour
 
     }
 
+    public void ContButPress()
+    {
+       finished = tempFinished;
+    }
 
     void Update()
     {

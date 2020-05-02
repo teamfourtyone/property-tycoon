@@ -10,25 +10,32 @@ public class Choice : MonoBehaviour
     public GameObject texty;
     public GameObject passBut;
     public GameObject upgradeBut;
-    public int choiceMade = 0;
+    public GameObject contBut;
+    public int choiceMa = 0;
     public bool run = false;
+    private int tempChoiceMa = 0;
 
     public void Start()
     {         
         enabled = false;
-        choiceMade = 0;
+        choiceMa = 0;
+        tempChoiceMa = 0;
     }
 
     void OnDisable()
     {
         box.SetActive(false); // or false
-        choiceMade = 0;
+        choiceMa = 0;
+        tempChoiceMa = 0;
+        contBut.SetActive(false);
     }
 
     void OnEnable()
     {
+        texty.GetComponent<Text>().text = "You own this property. Would you like to upgrade ? ";
         //Time.timeScale = 0f;
-        choiceMade = 0;
+        choiceMa = 0;
+        tempChoiceMa = 0;
         box.SetActive(true); // or false
         passBut.SetActive(true);
         upgradeBut.SetActive(true);
@@ -45,23 +52,30 @@ public class Choice : MonoBehaviour
     public void PassButPress()
     {
         texty.GetComponent<Text>().text = "Next Player";
-        choiceMade = 1;
-        GetComponent<Choice>().enabled = false;
+        tempChoiceMa = 3;
+        
     }
 
     public void UpgradeButPress()
     {
         texty.GetComponent<Text>().text = "Congratulations on Your Upgrade";
-        choiceMade = 2;
+        tempChoiceMa = 4;
+    }
+
+    public void ContButPress()
+    {
+        choiceMa = tempChoiceMa;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (choiceMade >= 1)
+        if (tempChoiceMa >= 1)
         {
+            
             passBut.SetActive(false);
             upgradeBut.SetActive(false);
+            contBut.SetActive(true);
         }
     }
 }
