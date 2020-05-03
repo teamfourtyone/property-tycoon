@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -18,7 +18,7 @@ public class Game : MonoBehaviour
     void Start()
     {
         Debug.Log("Game initialization starting.");
-        //Instance = this;
+
         // Initialize board.
         int nTiles = 4 * 10;
         this.board = new Tile[nTiles];
@@ -58,14 +58,6 @@ public class Game : MonoBehaviour
 
         Debug.Log("Game starting.");
         Debug.Log("board length  " + board.Length);
-        players[0].move(board);
-        /*
-                //tile test
-                Debug.Log("tiletest");
-                Tile te = new TileStreet(1);
-                te.landingAction(this.players[1], this.players[1], board);
-                Debug.Log("tilefin");
-                */
     }
 
     public Player[] RetPlayer()
@@ -83,7 +75,6 @@ public class Game : MonoBehaviour
             for (int playerId = 0; playerId < players.Length; playerId++)
             {
                 Player player = players[playerId];
-               // Debug.Log("wrong1");
                 if (player.getAnimatedPosition() != player.getPosition())
                 {
                    // Debug.Log("moving?");
@@ -97,11 +88,7 @@ public class Game : MonoBehaviour
                       5,
                       (float)(scaleFactor * (XZ[1] - 0.25 + playerId * 0.1))
                     );
-                    //Debug.Log("wrong2");
-                    if (player.getAnimatedPosition() == player.getPosition())
-                    {
-                        //Debug.Log("wrong3");
-                        curplayer = player;
+          if (player.getAnimatedPosition() == player.getPosition()) {
                         board[player.getPosition()].landingAction(player, players[(playerId + 1) % 6], board);
                        // Debug.Log("thr board length  " + board.Length);
                       //  Debug.Log("throw to landing");

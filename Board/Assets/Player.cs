@@ -1,10 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player
 {
-  
     public int id;
   // Theoretical position (during an animation that is the position where the token is when the animation ends.)
   private int position = 0;
@@ -22,7 +21,6 @@ public class Player
     public Player(int id)
   {
     this.id = id;
-    //    Instancee = this;
     }
 
   public void move(Tile[] board, int repetition = 1)
