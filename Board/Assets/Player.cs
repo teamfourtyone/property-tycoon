@@ -15,7 +15,8 @@ public class Player
   public int prisonDuration = 0;
   public bool surrendered = false;
  
-    public ArrayList cards = new ArrayList();
+   // public ArrayList cards = new ArrayList();
+    public List<int> cards = new List<int>();
 
   
 

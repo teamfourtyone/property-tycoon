@@ -15,15 +15,22 @@ public abstract class Tile: MonoBehaviour
     {
         Debug.Log(currentPlayer + " buying " + id);
         Game.Instance.board[Game.Instance.curplayer.getPosition()].owner = Game.Instance.curplayer.id;
-        Game.Instance.curplayer.cards.Add(Game.Instance.board[Game.Instance.curplayer.getPosition()]);
-        
+        Game.Instance.curplayer.cards.Add(Game.Instance.board[Game.Instance.curplayer.getPosition()].id); //holds ids
+        for (int i = 0; i < Game.Instance.curplayer.cards.Count; i++)
+        {
+            Debug.Log("printing cards" + currentPlayer.cards[i].GetType());
+        }
     }
 
     public void Auctbuy(Player currentPlayer)
     {
         Debug.Log(currentPlayer.id + " buying from Auction card:" + Game.Instance.curplayer.getPosition());
         Game.Instance.board[Game.Instance.curplayer.getPosition()].owner = currentPlayer.id;
-        currentPlayer.cards.Add(Game.Instance.board[Game.Instance.curplayer.getPosition()]);
+        Game.Instance.curplayer.cards.Add(Game.Instance.board[Game.Instance.curplayer.getPosition()].id); //holds ids
+        for (int i = 0; i < Game.Instance.curplayer.cards.Count; i++)
+        {
+            Debug.Log("printing cards"+ currentPlayer.cards[i]);
+        }
 
     }
     public void upgrade()
