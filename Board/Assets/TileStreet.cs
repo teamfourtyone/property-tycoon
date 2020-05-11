@@ -4,12 +4,16 @@ using UnityEngine;
 public class TileStreet : Tile 
 { 
     public string colour;   
-    public bool mortgaged;
-    public int orininalPrice;
-    public int curPrice;
+  
+    
+   
 
     public int choice;
     public GameObject go;
+
+    public GameObject canvas;
+    public GameObject rollPan;
+
     public static Player landedPlayer;
     public static Player nextPlayerr;
     public static Tile[] boardy;
@@ -69,7 +73,7 @@ public class TileStreet : Tile
             choice = 3;
             Debug.Log("run buy");
             go.GetComponent<Buy>().enabled = true;
-           go.GetComponent<Auction>().enabled = true;
+            go.GetComponent<Auction>().enabled = true;
             go.GetComponent<Auction>().enabled = false;
 
         }
@@ -80,7 +84,11 @@ public class TileStreet : Tile
 
     public void nextp()
     {
+        Time.timeScale = 0f;
+        rollPan.SetActive(true);
+        rollPan.GetComponent<Roll>().enabled = true;
         nextPlayerr.move(boardy);
+        
     }
 
     

@@ -8,7 +8,13 @@ public abstract class Tile: MonoBehaviour
     public int owner;
     public int id ;
     public int numHouses;
+    public bool mortgaged;
+
+    public int originalPrice; 
+    public int curPrice; // what landing players will pay
+    public int mortPrice; // price of property when mortgaged
     
+
     public abstract void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board);
 
     public void buy(Player currentPlayer)
@@ -39,9 +45,9 @@ public abstract class Tile: MonoBehaviour
         
     }
 
-    public void mortgage(Player currentPlayer)
+    public int mortgage()
     {
-
+        return originalPrice - mortPrice;
     }
     public void sell(Player currentPlayer)
     {

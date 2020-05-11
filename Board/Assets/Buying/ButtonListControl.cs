@@ -22,7 +22,7 @@ public class ButtonListControl : MonoBehaviour
 
             button.SetActive(true);
             clones.Add(button);
-            button.GetComponent<ButtonListButton>().SetText("card id " + Game.Instance.curplayer.cards[i]);
+            button.GetComponent<ButtonListButton>().SetText("card id " + Game.Instance.curplayer.cards[i], Game.Instance.curplayer.cards[i]);
 
             button.transform.SetParent(buttonTemplate.transform.parent, false);
         }
@@ -38,7 +38,7 @@ public class ButtonListControl : MonoBehaviour
             button.SetActive(true);
             clones.Add(button);
             clones.Add(button);
-            button.GetComponent<ButtonListButton>().SetText("card id " + Game.Instance.curplayer.cards[i]);
+            button.GetComponent<ButtonListButton>().SetText("card id " + Game.Instance.curplayer.cards[i], Game.Instance.curplayer.cards[i]);
 
             button.transform.SetParent(buttonTemplate.transform.parent, false);
         }

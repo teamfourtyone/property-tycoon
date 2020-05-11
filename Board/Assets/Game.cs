@@ -14,6 +14,9 @@ public class Game : MonoBehaviour
     double time = 0;
     double step = 0;
     public Player curplayer;
+    public Player nextplayer;
+    public int lastd1;
+    public int lastd2;
 
     void Start()
     {
@@ -75,6 +78,7 @@ public class Game : MonoBehaviour
 
     void Update()
     {
+        
         Instance = this;
         // Start();
         if (step > 0.2)
@@ -83,10 +87,16 @@ public class Game : MonoBehaviour
             for (int playerId = 0; playerId < players.Length; playerId++)
             {
                 Player player = players[playerId];
-               // Debug.Log("wrong1");
+                
+                
+                 Debug.Log("wrong1");
                 if (player.getAnimatedPosition() != player.getPosition())
                 {
-                   // Debug.Log("moving?");
+                    curplayer = player;
+                    nextplayer = players[(playerId + 1) % 6];
+                    // lastd1 = player.d1;
+                    // lastd2 = player.d2;
+                    // Debug.Log("moving?");
                     //Debug.Log("mov board length  " + board.Length);
                     player.setAnimatedPosition((player.getAnimatedPosition() + 1) % board.Length);
                     GameObject playerToken = GameObject.Find("player" + (playerId + 1));
@@ -101,7 +111,7 @@ public class Game : MonoBehaviour
                     if (player.getAnimatedPosition() == player.getPosition())
                     {
                         //Debug.Log("wrong3");
-                        curplayer = player;
+                        //curplayer = player;
                         board[player.getPosition()].landingAction(player, players[(playerId + 1) % 6], board);
                        // Debug.Log("thr board length  " + board.Length);
                       //  Debug.Log("throw to landing");

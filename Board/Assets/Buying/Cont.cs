@@ -10,8 +10,9 @@ public class Cont : MonoBehaviour
     public GameObject contBut;
     public bool confirmed = false;
     public bool run;
-    public enum Type { draw, pay };
+    public enum Type { draw, pay,roll,fu };
     public Type b;
+   
 
     public void Start()
     {
@@ -24,6 +25,7 @@ public class Cont : MonoBehaviour
         box.SetActive(false); // or false
         contBut.SetActive(false);
         confirmed = false;
+        this.b = Type.fu;
     }
 
     void OnEnable()

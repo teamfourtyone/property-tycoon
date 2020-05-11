@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player
+public class Player //: MonoBehaviour
 {
-  
+    public GameObject rollPan;
     public int id;
   // Theoretical position (during an animation that is the position where the token is when the animation ends.)
   private int position = 0;
@@ -18,6 +18,8 @@ public class Player
    // public ArrayList cards = new ArrayList();
     public List<int> cards = new List<int>();
 
+    public int d1;
+    public int d2;
   
 
     public Player(int id)
@@ -28,11 +30,20 @@ public class Player
 
   public void move(Tile[] board, int repetition = 1)
   {
-    int dice1 = Random.Range(1, 6);
-    int dice2 = Random.Range(1, 6);
-    Debug.Log("Dice thrown: " + dice1 + " and " + dice2 + ".");
-    int result = dice1 + dice2;
-    if (prisonDuration == 0 || dice1 == dice2)
+        //Time.timeScale = 0f;
+       rollPan =  GameObject.Find("RollPanel");
+        int dice1 = Random.Range(1, 6);
+         int dice2 = Random.Range(1, 6);
+        d1 = dice1;
+        d2 = dice2;
+        //rollPan.SetActive(true);
+        //rollPan.GetComponent<Roll>().enabled = true;
+       // rollPan.GetComponent<Roll>().setDice(d1, d2);
+        d1 = dice1;
+        d2 = dice2;
+        Debug.Log("Dice thrown: " + dice1 + " and " + dice2 + ".");
+        int result = dice1 + dice2;
+        if (prisonDuration == 0 || dice1 == dice2)
     {
       this.prisonDuration = 0;
       this.setPosition(this.position + result, board);
