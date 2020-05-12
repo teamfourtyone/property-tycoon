@@ -5,13 +5,21 @@ using UnityEngine;
 // TODO: Make this an abstract class, create inheriting child classes for Go Tile, Street Tile, etc.
 public abstract class Tile: MonoBehaviour
 {
-    public int owner;
-    public int id ;
+    public string title;
+    public int curPrice; // what landing players will pay
     public int numHouses;
+    public int originalPrice;
+    public int oneHouse;
+    public int twoHouse;
+    public int threeHouse;
+    public int fourHouse;
+    public int oneHotel;
+
+    public int owner;
+    public int id ; 
     public bool mortgaged;
     public string colour;
-    public int originalPrice; 
-    public int curPrice; // what landing players will pay
+
     public int mortPrice; // price of property when mortgaged
     
 
