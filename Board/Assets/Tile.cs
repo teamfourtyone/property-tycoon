@@ -9,7 +9,7 @@ public abstract class Tile: MonoBehaviour
     public int id ;
     public int numHouses;
     public bool mortgaged;
-
+    public string colour;
     public int originalPrice; 
     public int curPrice; // what landing players will pay
     public int mortPrice; // price of property when mortgaged
