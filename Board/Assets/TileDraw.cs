@@ -9,7 +9,7 @@ public class TileDraw : Tile
     public static Player nextPlayerr;
     public static Tile[] boardy;
 
-    public TileDraw(int i, string name)
+    public TileDraw(int i)
     {
         id = i;
     }
