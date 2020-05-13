@@ -8,11 +8,11 @@ public class TileGo : Tile
   {
         id = i;
   }
-  public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
+  public override void landingAction()
   {
-    Debug.Log("Player " + currentPlayer.id + " landed on Go.");
-    currentPlayer.crossGo();
-    nextPlayer.move(board);
+    Debug.Log("Player " + Game.currentPlayer.id + " landed on Go.");
+    Game.currentPlayer.crossGo();
+    Game.nextPlayer.move();
   }
 }
 

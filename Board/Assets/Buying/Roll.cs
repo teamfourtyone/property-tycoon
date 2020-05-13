@@ -32,7 +32,7 @@ public class Roll : MonoBehaviour
     {
        rollBut.SetActive(false);
        go.GetComponent<Cont>().enabled = true;
-       go.GetComponent<Cont>().SetText("Player " + Game.Instance.nextplayer.id + " rolled " + Game.Instance.nextplayer.d1+ " and "+ Game.Instance.nextplayer.d2, Cont.Type.roll);
+       go.GetComponent<Cont>().SetText("Player " + Game.currentPlayer.id + " rolled " + Game.currentPlayer.dice1+ " and "+ Game.currentPlayer.dice2, Cont.Type.roll);
     }
     // Update is called once per frame
     void Update()

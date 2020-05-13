@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameObject rollPan;
-    public int id;
+  public GameObject rollPan;
+  public int id;
   // Theoretical position (during an animation that is the position where the token is when the animation ends.)
   private int position = 0;
   // Temporary position during an animation, otherwise identical with theoretical position.
@@ -14,80 +14,80 @@ public class Player : MonoBehaviour
   public int nGoPasses = 0;
   public int prisonDuration = 0;
   public bool surrendered = false;
- 
-   // public ArrayList cards = new ArrayList();
-    public List<int> cards = new List<int>();
 
-    public int d1;
-    public int d2;
-  
+  // public ArrayList cards = new ArrayList();
+  public List<int> cards = new List<int>();
 
-    public Player(int id)
+  public int dice1;
+  public int dice2;
+
+
+  public Player(int id)
   {
     this.id = id;
     //    Instancee = this;
-    }
+  }
 
-  public void move(Tile[] board, int repetition = 1)
+  public void move(int repetition = 1)
   {
-        //Time.timeScale = 0f;
-       rollPan =  GameObject.Find("RollPanel");
-        int dice1 = Random.Range(1, 6);
-         int dice2 = Random.Range(1, 6);
-        d1 = dice1;
-        d2 = dice2;
-        //rollPan.SetActive(true);
-        //rollPan.GetComponent<Roll>().enabled = true;
-       // rollPan.GetComponent<Roll>().setDice(d1, d2);
-        d1 = dice1;
-        d2 = dice2;
-        Debug.Log("Dice thrown: " + dice1 + " and " + dice2 + ".");
-        int result = dice1 + dice2;
-        if (prisonDuration == 0 || dice1 == dice2)
+    Game.currentPlayer = this;
+    Game.nextPlayer = Game.players[(this.id + 1) % Game.players.Length];
+    //Time.timeScale = 0f;
+    rollPan = GameObject.Find("RollPanel");
+    this.dice1 = Random.Range(1, 6);
+    this.dice2 = Random.Range(1, 6);
+    //rollPan.SetActive(true);
+    //rollPan.GetComponent<Roll>().enabled = true;
+    // rollPan.GetComponent<Roll>().setDice(d1, d2);
+    Debug.Log("Dice thrown: " + dice1 + " and " + dice2 + ".");
+    int result = dice1 + dice2;
+    if (prisonDuration == 0 || dice1 == dice2)
     {
       this.prisonDuration = 0;
-      this.setPosition(this.position + result, board);
+      this.setPosition(this.position + result);
     }
     else
     {
       int maxRepetitions = 3;
       if (repetition <= maxRepetitions)
       {
-        this.move(board, repetition + 1);
+        this.move(repetition + 1);
       }
     }
   }
 
-    public int getId()
-    {
-        return this.id;
-    }
+  public int getId()
+  {
+    return this.id;
+  }
 
-    public int getPosition()
+  public int getPosition()
   {
     return this.position;
   }
 
-  public void setPosition(int position, Tile[] board)
+  public void setPosition(int position)
   {
-    if (position >= board.Length)
+    if (position >= Game.board.Length)
     {
       this.crossGo();
     }
-       // Debug.Log("position "+ position);
-       // Debug.Log("board.Length " + board.Length);
-        this.position = position % board.Length;
+    // Debug.Log("position "+ position);
+    // Debug.Log("board.Length " + board.Length);
+    this.position = position % Game.board.Length;
   }
-  public int getAnimatedPosition() {
+  public int getAnimatedPosition()
+  {
     return this.animatedPosition;
   }
-  public void setAnimatedPosition(int animatedPosition) {
+  public void setAnimatedPosition(int animatedPosition)
+  {
     this.animatedPosition = animatedPosition;
   }
 
-  public static double[] getXZ(int position, Tile[] board)
+  public static double[] getXZ(int position)
   {
-    int rowLength = board.Length / 4;
+    int rowLength = Game.board.Length / 4;
     if (position < rowLength)
     {
       return new double[] { 0.5, position + 0.5 };
@@ -116,5 +116,5 @@ public class Player : MonoBehaviour
   {
     return balance > 0 && !this.surrendered;
   }
-    
+
 }

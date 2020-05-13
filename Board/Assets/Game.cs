@@ -8,16 +8,16 @@ using System.IO;
 public class Game : MonoBehaviour
 {
   public static Game Instance;
-  public Tile[] board;
-  Card[] pile1 = new Card[20];
-  Card[] pile2 = new Card[20];
-  public Player[] players;
+  public static Tile[] board;
+  public static Card[] pile1 = new Card[20];
+  public static Card[] pile2 = new Card[20];
+  public static Player[] players;
   double time = 0;
   double step = 0;
-  public Player curplayer;
-  public Player nextplayer;
-  public int lastd1;
-  public int lastd2;
+  public static Player currentPlayer;
+  public static Player nextPlayer;
+  public int lastd1; // "d" = "dice" ?
+  public int lastd2; // "d" = "dice" ?
 
   void Start()
   {
@@ -37,33 +37,33 @@ public class Game : MonoBehaviour
     }
     // Initialize board.
     int nTiles = 4 * 10;
-    this.board = new Tile[nTiles];
+    Game.board = new Tile[nTiles];
     for (int i = 0; i < nTiles; i++)
     {
       if (tiletype[i] == "Yes" /* can be bought */)
       {
-        board[i] = new TileStreet(i, space[i], color[i], board);
+        Game.board[i] = new TileStreet(i, space[i], color[i]);
       }
       else
       {
-        board[i] = new TileGo(i);
+        Game.board[i] = new TileGo(i);
       }
     }
 
     // Initialize players.
     int nPlayers = 6;
-    this.players = new Player[nPlayers];
+    Game.players = new Player[nPlayers];
     for (int i = 0; i < nPlayers; i++)
     {
-      this.players[i] = new Player(i);
-      this.players[i].setPosition(0, board);
+      Game.players[i] = new Player(i);
+      Game.players[i].setPosition(0);
     }
-    this.pile1 = Card.shuffle(this.pile1);
-    this.pile2 = Card.shuffle(this.pile2);
+    Game.pile1 = Card.shuffle(Game.pile1);
+    Game.pile2 = Card.shuffle(Game.pile2);
 
     Debug.Log("Game starting.");
-    Debug.Log("board length  " + board.Length);
-    players[0].move(board);
+    Debug.Log("board length  " + Game.board.Length);
+    players[0].move();
     /*
             //tile test
             Debug.Log("tiletest");
@@ -88,21 +88,19 @@ public class Game : MonoBehaviour
       // Perform token animations.
       for (int playerId = 0; playerId < players.Length; playerId++)
       {
-        Player player = players[playerId];
+        Player player = Game.players[playerId];
 
 
         Debug.Log("wrong1");
         if (player.getAnimatedPosition() != player.getPosition())
         {
-          curplayer = player;
-          nextplayer = players[(playerId + 1) % 6];
           // lastd1 = player.d1;
           // lastd2 = player.d2;
           // Debug.Log("moving?");
           //Debug.Log("mov board length  " + board.Length);
-          player.setAnimatedPosition((player.getAnimatedPosition() + 1) % board.Length);
+          player.setAnimatedPosition((player.getAnimatedPosition() + 1) % Game.board.Length);
           GameObject playerToken = GameObject.Find("player" + (playerId + 1));
-          double[] XZ = Player.getXZ(player.getAnimatedPosition(), this.board);
+          double[] XZ = Player.getXZ(player.getAnimatedPosition());
           int scaleFactor = 2; // to adjust because the board size is 20 and not 10
           playerToken.transform.position = new Vector3(
             (float)(scaleFactor * (XZ[0] - 0.25 + playerId * 0.1)),
@@ -113,15 +111,14 @@ public class Game : MonoBehaviour
           if (player.getAnimatedPosition() == player.getPosition())
           {
             //Debug.Log("wrong3");
-            //curplayer = player;
-            board[player.getPosition()].landingAction(player, players[(playerId + 1) % 6], board);
+            Game.board[player.getPosition()].landingAction();
             // Debug.Log("thr board length  " + board.Length);
             //  Debug.Log("throw to landing");
           }
         }
       }
       // Check whether the game is over.
-      int nActivePlayers = this.players
+      int nActivePlayers = Game.players
         .Where(p => p.isActive())
         .ToArray()
         .Length;
@@ -140,10 +137,10 @@ public class Game : MonoBehaviour
 
   }
 
-  public static Vector3 CoordinatesFromPosition(Tile[] board, int position, float xAdd = 0, float yAdd = 0, float zAdd = 0)
+  public static Vector3 CoordinatesFromPosition(int position, float xAdd = 0, float yAdd = 0, float zAdd = 0)
   {
     float y = 0f + yAdd;
-    int rowLength = board.Length / 4;
+    int rowLength = Game.board.Length / 4;
     int s = 2; // scale
     if (position < rowLength)
     {

@@ -6,27 +6,23 @@ public class TileDraw : Tile
 {
 
     public GameObject go;
-    public static Player nextPlayerr;
-    public static Tile[] boardy;
 
     public TileDraw(int i, string name)
     {
         id = i;
     }
 
-    public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
+    public override void landingAction()
     {
-        Debug.Log("Player " + currentPlayer.id + " landed on card draw tile " + this.id + ".");
-        nextPlayerr = nextPlayer;
-        boardy = board;
+        Debug.Log("Player " + Game.currentPlayer.id + " landed on card draw tile " + this.id + ".");
         go = GameObject.Find("GameController");
         go.GetComponent<Cont>().enabled = true;
-        go.GetComponent<Cont>().SetText("Player " + currentPlayer.id + " Landed On Card Draw Tile" , Cont.Type.draw);
+        go.GetComponent<Cont>().SetText("Player " + Game.currentPlayer.id + " Landed On Card Draw Tile" , Cont.Type.draw);
         // 
     }
     public void nextp()
     {
-        nextPlayerr.move(boardy);
+        Game.nextPlayer.move();
     }
 
     void Update()

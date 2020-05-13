@@ -14,31 +14,31 @@ public class ButtonListControl : MonoBehaviour
 
     void Start()
     {
-        parent.GetComponent<Text>().text = "Player " + Game.Instance.curplayer.id+"'s Cards";
+        parent.GetComponent<Text>().text = "Player " + Game.currentPlayer.id+"'s Cards";
        
-        for (int i = 0; i < Game.Instance.curplayer.cards.Count; i++)
+        for (int i = 0; i < Game.currentPlayer.cards.Count; i++)
         {
             GameObject button = Instantiate(buttonTemplate) as GameObject;
 
             button.SetActive(true);
             clones.Add(button);
-            button.GetComponent<ButtonListButton>().SetText("card id " + Game.Instance.curplayer.cards[i], Game.Instance.curplayer.cards[i]);
+            button.GetComponent<ButtonListButton>().SetText("card id " + Game.currentPlayer.cards[i], Game.currentPlayer.cards[i]);
 
             button.transform.SetParent(buttonTemplate.transform.parent, false);
         }
     }
     void OnEnable()
     {
-        parent.GetComponent<Text>().text = "Player " + Game.Instance.curplayer.id + "'s Cards";
+        parent.GetComponent<Text>().text = "Player " + Game.currentPlayer.id + "'s Cards";
 
-        for (int i = 0; i < Game.Instance.curplayer.cards.Count; i++)
+        for (int i = 0; i < Game.currentPlayer.cards.Count; i++)
         {
             GameObject button = Instantiate(buttonTemplate) as GameObject;
 
             button.SetActive(true);
             clones.Add(button);
             clones.Add(button);
-            button.GetComponent<ButtonListButton>().SetText("card id " + Game.Instance.curplayer.cards[i], Game.Instance.curplayer.cards[i]);
+            button.GetComponent<ButtonListButton>().SetText("card id " + Game.currentPlayer.cards[i], Game.currentPlayer.cards[i]);
 
             button.transform.SetParent(buttonTemplate.transform.parent, false);
         }

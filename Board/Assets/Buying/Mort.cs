@@ -42,20 +42,20 @@ public class Mort : MonoBehaviour
     {
         this.id = id;
 
-        for (int i = 0; i < Game.Instance.board.Length; i++)
+        for (int i = 0; i < Game.board.Length; i++)
         {
-            if (Game.Instance.board[i].id == id)
+            if (Game.board[i].id == id)
             {
-                numHouse = Game.Instance.board[i].numHouses;
-                colour = Game.Instance.board[i].colour;
+                numHouse = Game.board[i].numHouses;
+                colour = Game.board[i].colour;
             }
         }
         int hold = 0;
-        for (int i = 0; i < Game.Instance.board.Length; i++)
+        for (int i = 0; i < Game.board.Length; i++)
         {
-            if (Game.Instance.board[i].colour == colour)
+            if (Game.board[i].colour == colour)
             {
-                if (Game.Instance.board[i].owner == Game.Instance.curplayer.id)
+                if (Game.board[i].owner == Game.currentPlayer.id)
                 {
                     hold++;
                 }
@@ -102,11 +102,11 @@ public class Mort : MonoBehaviour
 
             //change balance NEED PRICE
 
-            for (int i = 0; i < Game.Instance.board.Length; i++)
+            for (int i = 0; i < Game.board.Length; i++)
             {
-                if (Game.Instance.board[i].id == id)
+                if (Game.board[i].id == id)
                 {
-                    Game.Instance.board[i].numHouses--;
+                    Game.board[i].numHouses--;
                 }
             }
         }
@@ -144,19 +144,19 @@ public class Mort : MonoBehaviour
     }
     public void mortButPress()
     {
-        for (int i = 0; i < Game.Instance.board.Length; i++)
+        for (int i = 0; i < Game.board.Length; i++)
         {
-            if( Game.Instance.board[i].id == id)
+            if( Game.board[i].id == id)
             {
-                if (Game.Instance.board[i].mortgaged == true)
+                if (Game.board[i].mortgaged == true)
                 {
                     texty.GetComponent<Text>().text = "You have already mortgaged this property";
                 }
                 else{
-                    texty.GetComponent<Text>().text = "Mortgaged for "+ Game.Instance.board[i].mortgage(); 
-                    Game.Instance.curplayer.balance += Game.Instance.board[i].mortgage();
-                    Game.Instance.board[i].curPrice = 0;
-                    Game.Instance.board[i].mortgaged = true;
+                    texty.GetComponent<Text>().text = "Mortgaged for "+ Game.board[i].mortgage(); 
+                    Game.currentPlayer.balance += Game.board[i].mortgage();
+                    Game.board[i].curPrice = 0;
+                    Game.board[i].mortgaged = true;
                     tempChoiceMade = 1;
 
                 }
@@ -165,26 +165,26 @@ public class Mort : MonoBehaviour
     }
     public void sellButPress()
     {
-        for (int i = 0; i < Game.Instance.board.Length; i++)
+        for (int i = 0; i < Game.board.Length; i++)
         {
-            if (Game.Instance.board[i].id == id)
+            if (Game.board[i].id == id)
             {
-                if (Game.Instance.board[i].mortgaged)
+                if (Game.board[i].mortgaged)
                 {
-                    texty.GetComponent<Text>().text = "You have sold this property for " + Game.Instance.board[i].mortPrice;
-                    Game.Instance.board[i].curPrice = Game.Instance.board[i].originalPrice;
-                    Game.Instance.board[i].owner = 0;
-                    Game.Instance.board[i].mortgaged = false;
-                    Game.Instance.curplayer.cards.Remove(Game.Instance.board[i].id);
+                    texty.GetComponent<Text>().text = "You have sold this property for " + Game.board[i].mortPrice;
+                    Game.board[i].curPrice = Game.board[i].originalPrice;
+                    Game.board[i].owner = 0;
+                    Game.board[i].mortgaged = false;
+                    Game.currentPlayer.cards.Remove(Game.board[i].id);
                     tempChoiceMade = 2;
                 }
                 else
                 {
-                    texty.GetComponent<Text>().text = "You have sold this property for " + Game.Instance.board[i].originalPrice ;
-                    Game.Instance.board[i].curPrice = Game.Instance.board[i].originalPrice;
-                    Game.Instance.board[i].owner = 0;
-                    Game.Instance.board[i].mortgaged = false;
-                    Game.Instance.curplayer.cards.Remove(Game.Instance.board[i].id);
+                    texty.GetComponent<Text>().text = "You have sold this property for " + Game.board[i].originalPrice ;
+                    Game.board[i].curPrice = Game.board[i].originalPrice;
+                    Game.board[i].owner = 0;
+                    Game.board[i].mortgaged = false;
+                    Game.currentPlayer.cards.Remove(Game.board[i].id);
                     tempChoiceMade = 2;
                 }
             }

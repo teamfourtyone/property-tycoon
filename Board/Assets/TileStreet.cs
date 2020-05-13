@@ -10,15 +10,12 @@ public class TileStreet : Tile
   public GameObject canvas;
   public GameObject rollPan;
 
-  public static Player landedPlayer;
-  public static Player nextPlayerr;
-  public static Tile[] boardy;
   public bool ready;
   int tempid;
   public string name;
   public string color;
   private GameObject tileColorObject;
-  public TileStreet(int i, string name, string color, Tile[] board)
+  public TileStreet(int i, string name, string color)
   {
     this.name = name;
     this.color = color;
@@ -29,7 +26,7 @@ public class TileStreet : Tile
 
     // Base Tile Object
     tileObject = GameObject.Instantiate(GameObject.Find("TileStreetDummy"));
-    tileObject.transform.position = Game.CoordinatesFromPosition(board, id);
+    tileObject.transform.position = Game.CoordinatesFromPosition(id);
     tileObject.transform.Rotate(0, (id / 10) * 90, 0, Space.World);
     // Text
     textObject = tileObject.transform.GetChild(0).gameObject;
@@ -41,23 +38,19 @@ public class TileStreet : Tile
     tileColorObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", TileStreet.colorFromString(color));
   }
 
-  public override void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board)
+  public override void landingAction()
   {
 
     Time.timeScale = 0f;
     go = GameObject.Find("GameController");
     tempid = id;
-    landedPlayer = currentPlayer;
-    nextPlayerr = nextPlayer;
-    boardy = board;
 
 
     Debug.Log("Landed on tile " + id + ".");
 
     if (owner != 0)
     {
-      landedPlayer = currentPlayer;
-      if (currentPlayer.id == owner)
+      if (Game.currentPlayer.id == owner)
       {
         Debug.Log("upgrade?");
         go.GetComponent<Choice>().enabled = true;
@@ -66,10 +59,10 @@ public class TileStreet : Tile
       else
       {
         go.GetComponent<Cont>().enabled = true;
-        go.GetComponent<Cont>().SetText("Player " + currentPlayer.id + " Pay Player " + owner + " \n £" + curPrice, Cont.Type.pay);
-        currentPlayer.balance -= this.curPrice;
-        Debug.Log("player " + currentPlayer.id + " paying player " + owner);
-        //if (currentPlayer.balance <= 0)
+        go.GetComponent<Cont>().SetText("Player " + Game.currentPlayer.id + " Pay Player " + owner + " \n £" + curPrice, Cont.Type.pay);
+        Game.currentPlayer.balance -= this.curPrice;
+        Debug.Log("player " + Game.currentPlayer.id + " paying player " + owner);
+        //if (Game.currentPlayer.balance <= 0)
         //{
         //START MORTGAGE TODO
         //    mortgage(currentPlayer);
@@ -90,7 +83,7 @@ public class TileStreet : Tile
 
     }
 
-    Debug.Log("card count player " + currentPlayer.id + ": " + currentPlayer.cards.Count);
+    Debug.Log("card count player " + Game.currentPlayer.id + ": " + Game.currentPlayer.cards.Count);
 
   }
 
@@ -99,7 +92,7 @@ public class TileStreet : Tile
     Time.timeScale = 0f;
     rollPan.SetActive(true);
     rollPan.GetComponent<Roll>().enabled = true;
-    nextPlayerr.move(boardy);
+    Game.nextPlayer.move();
 
   }
 
@@ -152,13 +145,13 @@ public class TileStreet : Tile
       //buy
       // buy(landedPlayer);
 
-      Game.Instance.board[Game.Instance.curplayer.getPosition()].buy(Game.Instance.curplayer);
+      Game.board[Game.currentPlayer.getPosition()].buy();
 
       go.GetComponent<Buy>().enabled = false;
       choice = 0;
       Debug.Log("returns choise 2");
       Time.timeScale = 1f;
-      Debug.Log("update board  " + boardy.Length);
+      Debug.Log("update board  " + Game.board.Length);
       nextp();
     }
     if (go.GetComponent<Cont>().confirmed == true && go.GetComponent<Cont>().b == Cont.Type.pay)

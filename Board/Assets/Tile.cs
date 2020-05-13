@@ -19,33 +19,33 @@ public abstract class Tile : MonoBehaviour
   public GameObject textObject;
 
 
-  public abstract void landingAction(Player currentPlayer, Player nextPlayer, Tile[] board);
+  public abstract void landingAction();
 
-  public void buy(Player currentPlayer)
+  public void buy()
   {
-    Debug.Log(currentPlayer + " buying " + id);
-    Game.Instance.board[Game.Instance.curplayer.getPosition()].owner = Game.Instance.curplayer.id;
-    Game.Instance.curplayer.cards.Add(Game.Instance.board[Game.Instance.curplayer.getPosition()].id); //holds ids
-    for (int i = 0; i < Game.Instance.curplayer.cards.Count; i++)
+    Debug.Log(Game.currentPlayer + " buying " + id);
+    Game.board[Game.currentPlayer.getPosition()].owner = Game.currentPlayer.id;
+    Game.currentPlayer.cards.Add(Game.board[Game.currentPlayer.getPosition()].id); //holds ids
+    for (int i = 0; i < Game.currentPlayer.cards.Count; i++)
     {
-      Debug.Log("printing cards" + currentPlayer.cards[i].GetType());
+      Debug.Log("printing cards" + Game.currentPlayer.cards[i].GetType());
     }
   }
 
-  public void Auctbuy(Player currentPlayer)
+  public void Auctbuy(Player player)
   {
-    Debug.Log(currentPlayer.id + " buying from Auction card:" + Game.Instance.curplayer.getPosition());
-    Game.Instance.board[Game.Instance.curplayer.getPosition()].owner = currentPlayer.id;
-    Game.Instance.curplayer.cards.Add(Game.Instance.board[Game.Instance.curplayer.getPosition()].id); //holds ids
-    for (int i = 0; i < Game.Instance.curplayer.cards.Count; i++)
+    Debug.Log(player.id + " buying from Auction card:" + Game.currentPlayer.getPosition());
+    Game.board[Game.currentPlayer.getPosition()].owner = player.id;
+    Game.currentPlayer.cards.Add(Game.board[Game.currentPlayer.getPosition()].id); //holds ids
+    for (int i = 0; i < Game.currentPlayer.cards.Count; i++)
     {
-      Debug.Log("printing cards" + currentPlayer.cards[i]);
+      // Debug.Log("printing cards" + player.cards[i]); // commented out because there are no cards implemented yet, so this would cause an index out of bounds exception.
     }
 
   }
   public void upgrade()
   {
-    Game.Instance.board[Game.Instance.curplayer.getPosition()].numHouses += 1;
+    Game.board[Game.currentPlayer.getPosition()].numHouses += 1;
 
   }
 
@@ -53,7 +53,7 @@ public abstract class Tile : MonoBehaviour
   {
     return originalPrice - mortPrice;
   }
-  public void sell(Player currentPlayer)
+  public void sell()
   {
 
   }

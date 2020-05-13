@@ -57,7 +57,7 @@ public class Auction : MonoBehaviour
     public void confirm()
     {
         //CHECKS BALANCE
-        if (Game.Instance.players[count].balance < int.Parse(entry.GetComponent<InputField>().text))  //NEED TO FIX ACCESS TO PLAYERLIST
+        if (Game.players[count].balance < int.Parse(entry.GetComponent<InputField>().text))
         {
             entry.GetComponent<InputField>().text = "That's too much money for you...";
         }
@@ -98,7 +98,7 @@ public class Auction : MonoBehaviour
                     if (bidArray[i] == max && max > 0)
                     {
                         heading.GetComponent<Text>().text = "Player " + (i + 1) + ", won with a bid of £" + max;
-                        auctWin = Game.Instance.players[i]; //access problems
+                        auctWin = Game.players[i];
                         tempFinished = true;
                         entry.SetActive(false);
                         confirmBut.SetActive(false);
