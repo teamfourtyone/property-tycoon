@@ -9,8 +9,6 @@ public class Roll : MonoBehaviour
     public GameObject rollBut;
     public GameObject rollResults;
     // Start is called before the first frame update
-    int dieOne = 0;
-    int dieTwo = 1;
 
     void Start()
     {
@@ -23,11 +21,6 @@ public class Roll : MonoBehaviour
         rollBut.SetActive(true);
     }
 
-    public void setDice(int d1, int d2)
-    {
-        dieOne = d1;
-        dieTwo = d2;      
-    }
     public void OnClick()
     {
        rollBut.SetActive(false);

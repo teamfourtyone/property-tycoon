@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-  public GameObject rollPan;
+  public GameObject rollPanel;
   public int id;
   // Theoretical position (during an animation that is the position where the token is when the animation ends.)
   private int position = 0;
   // Temporary position during an animation, otherwise identical with theoretical position.
   private int animatedPosition;
   public int balance = 1500;
-  public int nGoPasses = 0;
+  public int numGoPasses = 0;
   public int prisonDuration = 0;
   public bool surrendered = false;
-
-  // public ArrayList cards = new ArrayList();
   public List<int> cards = new List<int>();
 
   public int dice1;
@@ -25,7 +23,6 @@ public class Player : MonoBehaviour
   public Player(int id)
   {
     this.id = id;
-    //    Instancee = this;
   }
 
   public void move(int repetition = 1)
@@ -33,7 +30,7 @@ public class Player : MonoBehaviour
     Game.currentPlayer = this;
     Game.nextPlayer = Game.players[(this.id + 1) % Game.players.Length];
     //Time.timeScale = 0f;
-    rollPan = GameObject.Find("RollPanel");
+    rollPanel = GameObject.Find("RollPanel");
     this.dice1 = Random.Range(1, 6);
     this.dice2 = Random.Range(1, 6);
     //rollPan.SetActive(true);
@@ -83,27 +80,6 @@ public class Player : MonoBehaviour
   public void setAnimatedPosition(int animatedPosition)
   {
     this.animatedPosition = animatedPosition;
-  }
-
-  public static double[] getXZ(int position)
-  {
-    int rowLength = Game.board.Length / 4;
-    if (position < rowLength)
-    {
-      return new double[] { 0.5, position + 0.5 };
-    }
-    else if (position < rowLength * 2)
-    {
-      return new double[] { (position % rowLength) + 0.5, rowLength + 0.5 };
-    }
-    else if (position < rowLength * 3)
-    {
-      return new double[] { rowLength + 0.5, rowLength - (position % (rowLength * 2)) + 0.5 };
-    }
-    else
-    {
-      return new double[] { rowLength - (position % (rowLength * 3)) + 0.5, 0.5 };
-    }
   }
 
   public void crossGo()

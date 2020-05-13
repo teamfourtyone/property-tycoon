@@ -37,9 +37,9 @@ public abstract class Tile : MonoBehaviour
     Debug.Log(player.id + " buying from Auction card:" + Game.currentPlayer.getPosition());
     Game.board[Game.currentPlayer.getPosition()].owner = player.id;
     Game.currentPlayer.cards.Add(Game.board[Game.currentPlayer.getPosition()].id); //holds ids
-    for (int i = 0; i < Game.currentPlayer.cards.Count; i++)
+    for (int i = 0; i < Game.currentPlayer.cards.Count - 1; i++)
     {
-      // Debug.Log("printing cards" + player.cards[i]); // commented out because there are no cards implemented yet, so this would cause an index out of bounds exception.
+      Debug.Log("printing cards" + player.cards[i]);
     }
 
   }
