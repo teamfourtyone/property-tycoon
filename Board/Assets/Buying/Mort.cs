@@ -70,7 +70,7 @@ public class Mort : MonoBehaviour
             ownAll = false;
         }
         
-              texty.GetComponent<Text>().text = "You have "+ numHouse +" houses on  " + id + "?"; //change to name
+              texty.GetComponent<Text>().text = "You have "+ numHouse +" houses on  " + id; //change to name
     }
 
     void OnEnable()
@@ -136,7 +136,7 @@ public class Mort : MonoBehaviour
         {
             upgradeBut.SetActive(false);
             firstSellBut.SetActive(false);
-            texty.GetComponent<Text>().text = "You dont down all properties of this colour"; //change to name
+            texty.GetComponent<Text>().text = "You don't own all properties of this colour"; //change to name
             contBut.SetActive(true);
         }
 
