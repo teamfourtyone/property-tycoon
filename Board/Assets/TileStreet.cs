@@ -30,7 +30,7 @@ public class TileStreet : Tile
 
         numHouses = 0;
     mortgaged = false;
-    owner = 0;
+    owner = 99;
     id = i;
 
     // Base Tile Object
@@ -57,7 +57,7 @@ public class TileStreet : Tile
 
     Debug.Log("Landed on tile " + id + ".");
 
-    if (owner != 0)
+    if (owner != 99)
     {
       if (Game.currentPlayer.id == owner)
       {
@@ -70,7 +70,8 @@ public class TileStreet : Tile
         go.GetComponent<Cont>().enabled = true;
         go.GetComponent<Cont>().SetText(Game.board[Game.currentPlayer.getPosition()].title +"\nPlayer " + Game.currentPlayer.id + " Pay Player " + owner + " \n £" + curPrice, Cont.Type.pay);
         Game.currentPlayer.balance -= Game.board[Game.currentPlayer.getPosition()].curPrice;
-        Debug.Log("player " + Game.currentPlayer.id + " paying player " + owner);
+                Game.players[Game.board[Game.currentPlayer.getPosition()].owner].balance += Game.board[Game.currentPlayer.getPosition()].curPrice;
+                Debug.Log("player " + Game.currentPlayer.id + " paying player " + owner);
         //if (Game.currentPlayer.balance <= 0)
         //{
         //START MORTGAGE TODO

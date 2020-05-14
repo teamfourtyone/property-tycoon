@@ -29,6 +29,7 @@ public abstract class Tile : MonoBehaviour
 
   public abstract void landingAction();
 
+    //
   public void buy()
   {
         Game.board[Game.currentPlayer.getPosition()].ResetPrice();
@@ -56,41 +57,43 @@ public abstract class Tile : MonoBehaviour
   {
         if (color != "Station")
         {
-            if (mortgaged == false)
+            if (color != "Utilities")
             {
-                if (numHouses == 0)
+                if (mortgaged == false)
                 {
-                  
-                    curPrice = int.Parse(noHouse);
-                    
+                    if (numHouses == 0)
+                    {
+
+                        curPrice = int.Parse(noHouse);
+
+                    }
+                    if (numHouses == 1)
+                    {
+                        curPrice = int.Parse(oneHouse);
+                    }
+                    if (numHouses == 2)
+                    {
+                        curPrice = int.Parse(twoHouse);
+                    }
+                    if (numHouses == 3)
+                    {
+                        curPrice = int.Parse(threeHouse);
+                    }
+                    if (numHouses == 4)
+                    {
+                        curPrice = int.Parse(fourHouse);
+                    }
+                    if (numHouses == 5)
+                    {
+                        curPrice = int.Parse(oneHotel);
+                    }
                 }
-                if (numHouses == 1)
+                else
                 {
-                    curPrice = int.Parse(oneHouse);
+                    curPrice = 0;
                 }
-                if (numHouses == 2)
-                {
-                    curPrice = int.Parse(twoHouse);
-                }
-                if (numHouses == 3)
-                {
-                    curPrice = int.Parse(threeHouse);
-                }
-                if (numHouses == 4)
-                {
-                    curPrice = int.Parse(fourHouse);
-                }
-                if (numHouses == 5)
-                {
-                    curPrice = int.Parse(oneHotel);
-                }
-            }
-            else
-            {
-                curPrice = 0;
             }
         }
-
     }
 
 

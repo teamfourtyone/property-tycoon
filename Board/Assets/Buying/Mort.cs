@@ -152,7 +152,7 @@ public class Mort : MonoBehaviour
         {
             upgradeBut.SetActive(false);
             firstSellBut.SetActive(false);
-            texty.GetComponent<Text>().text = "You dont down all properties of this colour"; //change to name
+            texty.GetComponent<Text>().text = "You dont own all properties of this colour"; //change to name
             contBut.SetActive(true);
         }
 
@@ -188,7 +188,7 @@ public class Mort : MonoBehaviour
                 {
                     texty.GetComponent<Text>().text = "You have sold this property for " + (int.Parse(Game.board[i].originalPrice)/2);
                     Game.currentPlayer.balance += (int.Parse(Game.board[i].originalPrice) / 2);
-                    Game.board[i].owner = 0;
+                    Game.board[i].owner = 99;
                     Game.board[i].mortgaged = false;
                     Game.currentPlayer.cards.Remove(Game.board[i].id);
                     tempChoiceMade = 2;
@@ -199,7 +199,7 @@ public class Mort : MonoBehaviour
                 {
                     texty.GetComponent<Text>().text = "You have sold this property for " + Game.board[i].originalPrice ;
                     Game.currentPlayer.balance += int.Parse(Game.board[i].originalPrice);
-                    Game.board[i].owner = 0;
+                    Game.board[i].owner = 99;
                     Game.board[i].mortgaged = false;
                     Game.currentPlayer.cards.Remove(Game.board[i].id);
                     tempChoiceMade = 2;

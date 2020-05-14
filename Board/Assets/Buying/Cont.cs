@@ -75,7 +75,7 @@ public class Cont : MonoBehaviour
             treeh.GetComponent<Text>().text = "£" + Game.board[Game.currentPlayer.getPosition()].threeHouse;
             fourh.GetComponent<Text>().text = "£" + Game.board[Game.currentPlayer.getPosition()].fourHouse;
             oneho.GetComponent<Text>().text = "£" + Game.board[Game.currentPlayer.getPosition()].oneHotel;
-            own.GetComponent<Text>().text = "Player " + UpgradeCost(Game.board[Game.currentPlayer.getPosition()].id);
+            own.GetComponent<Text>().text = "Player " + Game.board[Game.currentPlayer.getPosition()].owner;
 
             backCol.GetComponent<Image>().color = TileStreet.colorFromString(Game.board[Game.currentPlayer.getPosition()].color);
             backCol.SetActive(true);

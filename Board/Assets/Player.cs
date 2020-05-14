@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
   public void crossGo()
   {
     Debug.Log("Crosses Go.");
-    this.balance = this.balance + 400;
+    this.balance = this.balance + 200;
   }
 
   public bool isActive()
