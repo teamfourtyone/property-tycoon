@@ -13,6 +13,7 @@ public class Mort : MonoBehaviour
     public GameObject contBut;
     public GameObject upgradeBut;
     public GameObject firstSellBut;
+    public GameObject cardPan;
 
     public int choiceMade = 0;
     public int tempChoiceMade = 0;
@@ -33,7 +34,7 @@ public class Mort : MonoBehaviour
  
         box.SetActive(false); 
         enabled = false;
-
+        int hold = 0;
         choiceMade = 0;
         tempChoiceMade = 0;
     }
@@ -47,13 +48,15 @@ public class Mort : MonoBehaviour
             if (Game.board[i].id == id)
             {
                 numHouse = Game.board[i].numHouses;
-                colour = Game.board[i].colour;
+                colour = Game.board[i].color;
             }
+
+
         }
         int hold = 0;
         for (int i = 0; i < Game.board.Length; i++)
         {
-            if (Game.board[i].colour == colour)
+            if (Game.board[i].color == colour)
             {
                 if (Game.board[i].owner == Game.currentPlayer.id)
                 {
@@ -107,8 +110,12 @@ public class Mort : MonoBehaviour
                 if (Game.board[i].id == id)
                 {
                     Game.board[i].numHouses--;
+                    Game.currentPlayer.balance += UpgradeCost(Game.board[i].id);
+                    Game.board[i].ResetPrice();
                 }
             }
+           
+
         }
         else
         {
@@ -131,6 +138,15 @@ public class Mort : MonoBehaviour
             texty.GetComponent<Text>().text = "Buying house on " + id + " for £"; //change to house name
             //BALANCE + HOUSE COST
             contBut.SetActive(true);
+            for (int i = 0; i < Game.board.Length; i++)
+            {
+                if (Game.board[i].id == id)
+                {
+                    Game.board[i].numHouses += 1;
+                    Game.currentPlayer.balance -= UpgradeCost(Game.board[i].id);
+                    Game.board[i].ResetPrice();
+                }
+            }
         }
         else
         {
@@ -153,12 +169,11 @@ public class Mort : MonoBehaviour
                     texty.GetComponent<Text>().text = "You have already mortgaged this property";
                 }
                 else{
-                    texty.GetComponent<Text>().text = "Mortgaged for "+ Game.board[i].mortgage(); 
-                    Game.currentPlayer.balance += Game.board[i].mortgage();
-                    Game.board[i].curPrice = 0;
+                    texty.GetComponent<Text>().text = "Mortgaged for "+ (int.Parse(Game.board[i].originalPrice) / 2);
+                    Game.currentPlayer.balance += (int.Parse(Game.board[i].originalPrice) / 2);
                     Game.board[i].mortgaged = true;
                     tempChoiceMade = 1;
-
+                    Game.board[i].ResetPrice();
                 }
             }
         }
@@ -171,21 +186,25 @@ public class Mort : MonoBehaviour
             {
                 if (Game.board[i].mortgaged)
                 {
-                    texty.GetComponent<Text>().text = "You have sold this property for " + Game.board[i].mortPrice;
-                    Game.board[i].curPrice = Game.board[i].originalPrice;
+                    texty.GetComponent<Text>().text = "You have sold this property for " + (int.Parse(Game.board[i].originalPrice)/2);
+                    Game.currentPlayer.balance += (int.Parse(Game.board[i].originalPrice) / 2);
                     Game.board[i].owner = 0;
                     Game.board[i].mortgaged = false;
                     Game.currentPlayer.cards.Remove(Game.board[i].id);
                     tempChoiceMade = 2;
+                    cardPan.SetActive(false);
+                    Game.board[i].ResetPrice();
                 }
                 else
                 {
                     texty.GetComponent<Text>().text = "You have sold this property for " + Game.board[i].originalPrice ;
-                    Game.board[i].curPrice = Game.board[i].originalPrice;
+                    Game.currentPlayer.balance += int.Parse(Game.board[i].originalPrice);
                     Game.board[i].owner = 0;
                     Game.board[i].mortgaged = false;
                     Game.currentPlayer.cards.Remove(Game.board[i].id);
                     tempChoiceMade = 2;
+                    cardPan.SetActive(false);
+                    Game.board[i].ResetPrice();
                 }
             }
         }
@@ -207,5 +226,27 @@ public class Mort : MonoBehaviour
             mortBut.SetActive(false);
             sellBut.SetActive(false);
         }
+    }
+
+    public int UpgradeCost(int i)
+    {
+        int holder = 0;
+        if (Game.board[i].color == "Brown" || Game.board[i].color == "Blue")
+        {
+            holder = 50;
+        }
+        if (Game.board[i].color == "Purple" || Game.board[i].color == "Orange")
+        {
+            holder = 100;
+        }
+        if (Game.board[i].color == "Red" || Game.board[i].color == "Yellow")
+        {
+            holder = 150;
+        }
+        if (Game.board[i].color == "Green" || Game.board[i].color == "Deep blue")
+        {
+            holder = 200;
+        }
+        return holder;
     }
 }

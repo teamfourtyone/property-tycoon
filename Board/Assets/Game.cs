@@ -27,13 +27,27 @@ public class Game : MonoBehaviour
     List<string> tiletype = new List<string>();
     List<string> space = new List<string>();
     List<string> color = new List<string>();
-    while (!reader.EndOfStream)
+    List<string> cost = new List<string>();
+        List<string> noHouse = new List<string>();
+        List<string> oneHouse = new List<string>();
+        List<string> twoHouse = new List<string>();
+        List<string> threeHouse = new List<string>();
+        List<string> fourHouse = new List<string>();
+        List<string> oneHotel = new List<string>();
+        while (!reader.EndOfStream)
     {
       string[] line = reader.ReadLine().Split(',');
       space.Add(line[1]);
       tiletype.Add(line[5]);
       color.Add(line[3]);
-    }
+            cost.Add(line[7]);
+            noHouse.Add(line[8]);
+            oneHouse.Add(line[10]);
+            twoHouse.Add(line[11]);
+            threeHouse.Add(line[12]);
+            fourHouse.Add(line[13]);
+            oneHotel.Add(line[14]);
+        }
 
     // Initialize board.
     int nTiles = 4 * 10;
@@ -42,7 +56,7 @@ public class Game : MonoBehaviour
     {
       if (tiletype[i] == "Yes" /* can be bought */)
       {
-        Game.board[i] = new TileStreet(i, space[i], color[i]);
+        Game.board[i] = new TileStreet(i, space[i], color[i], cost[i], noHouse[i], oneHouse[i], twoHouse[i], threeHouse[i], fourHouse[i], oneHotel[i]);
       }
       else
       {

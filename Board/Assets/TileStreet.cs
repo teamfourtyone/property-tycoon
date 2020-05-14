@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Text.RegularExpressions;
 
 public class TileStreet : Tile
 {
@@ -12,14 +13,22 @@ public class TileStreet : Tile
 
   public bool ready;
   int tempid;
-  public string name;
-  public string color;
+  
+ 
   private GameObject tileColorObject;
-  public TileStreet(int i, string name, string color)
+  public TileStreet(int i, string title, string color, string cost, string nohouse, string onehouse, string twohouse, string threehouse, string fourhouse, string onehotel)
   {
-    this.name = name;
+    this.title = title;
     this.color = color;
-    numHouses = 0;
+        this.originalPrice = cost;
+        this.noHouse = nohouse;
+        this.oneHouse = onehouse;
+        this.twoHouse = twohouse;
+        this.threeHouse  = threehouse;
+        this.fourHouse = fourhouse;
+        this.oneHotel = onehotel;
+
+        numHouses = 0;
     mortgaged = false;
     owner = 0;
     id = i;
@@ -31,7 +40,7 @@ public class TileStreet : Tile
     // Text
     textObject = tileObject.transform.GetChild(0).gameObject;
     var textMesh = textObject.GetComponent<TextMeshPro>();
-    textMesh.text = name;
+    textMesh.text = title;
     // Color
     tileColorObject = tileObject.transform.GetChild(1).gameObject;
     tileColorObject.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
@@ -59,8 +68,8 @@ public class TileStreet : Tile
       else
       {
         go.GetComponent<Cont>().enabled = true;
-        go.GetComponent<Cont>().SetText("Player " + Game.currentPlayer.id + " Pay Player " + owner + " \n £" + curPrice, Cont.Type.pay);
-        Game.currentPlayer.balance -= this.curPrice;
+        go.GetComponent<Cont>().SetText(Game.board[Game.currentPlayer.getPosition()].title +"\nPlayer " + Game.currentPlayer.id + " Pay Player " + owner + " \n £" + curPrice, Cont.Type.pay);
+        Game.currentPlayer.balance -= Game.board[Game.currentPlayer.getPosition()].curPrice;
         Debug.Log("player " + Game.currentPlayer.id + " paying player " + owner);
         //if (Game.currentPlayer.balance <= 0)
         //{
@@ -111,7 +120,7 @@ public class TileStreet : Tile
     }
     if (go.GetComponent<Choice>().choiceMa == 4)
     {
-      upgrade();
+      //COMPLETE LATER
       go.GetComponent<Choice>().enabled = false;
       Debug.Log("upgrading");
       Time.timeScale = 1f;
@@ -120,7 +129,7 @@ public class TileStreet : Tile
 
     if (go.GetComponent<Auction>().finished == true)
     {
-      Auctbuy(go.GetComponent<Auction>().auctWin);
+      Auctbuy(go.GetComponent<Auction>().auctWin, go.GetComponent<Auction>().winBid);
       go.GetComponent<Auction>().enabled = false;
       choice = 0;
       Debug.Log("returns auction");
@@ -162,9 +171,12 @@ public class TileStreet : Tile
 
     }
 
-  }
+      
+        
 
-  private static Color colorFromString(string s)
+    }
+
+  public static Color colorFromString(string s)
   {
     switch (s)
     {

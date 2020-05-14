@@ -13,7 +13,8 @@ public class Auction : MonoBehaviour
     public GameObject contBut;
     public int count;
     int[] bidArray = new int[6];  //need to change to curNumOfPlayers
-    public Player auctWin;
+    public int auctWin;
+    public int winBid;
     public bool finished = false;
     public bool tempFinished = false;
 
@@ -50,7 +51,7 @@ public class Auction : MonoBehaviour
         confirmBut.SetActive(true); // or false
         panel.SetActive(true);
         contBut.SetActive(false);
-        heading.GetComponent<Text>().text = "Player " + (count + 1) + ", please make your bid.";
+        heading.GetComponent<Text>().text = "Player " + (count) + ", please make your bid.";
 
     }
 
@@ -97,8 +98,9 @@ public class Auction : MonoBehaviour
                 {
                     if (bidArray[i] == max && max > 0)
                     {
-                        heading.GetComponent<Text>().text = "Player " + (i + 1) + ", won with a bid of £" + max;
-                        auctWin = Game.players[i];
+                        heading.GetComponent<Text>().text = "Player " + (i) + ", won with a bid of £" + max;
+                        auctWin = Game.players[i].id;
+                        winBid = max;
                         tempFinished = true;
                         entry.SetActive(false);
                         confirmBut.SetActive(false);
@@ -108,7 +110,7 @@ public class Auction : MonoBehaviour
             }
             else
             {
-                heading.GetComponent<Text>().text = "Player " + (count + 1) + ", please make your bid.";
+                heading.GetComponent<Text>().text = "Player " + (count) + ", please make your bid.";
             }
         }
 

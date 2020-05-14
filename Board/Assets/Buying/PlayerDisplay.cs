@@ -17,6 +17,6 @@ public class PlayerDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerText.GetComponent<Text>().text = "Player " + Game.currentPlayer.id ;
+        playerText.GetComponent<Text>().text = "Player " + Game.currentPlayer.id + "    £" + Game.currentPlayer.balance  ;
     }
 }

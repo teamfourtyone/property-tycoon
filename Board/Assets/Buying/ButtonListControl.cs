@@ -13,27 +13,8 @@ public class ButtonListControl : MonoBehaviour
     public List<GameObject> clones = new List<GameObject>();
     public Tile cur;
 
-    void Start()
-    {
-        parent.GetComponent<Text>().text = "Player " + Game.currentPlayer.id+"'s Cards";
-       
-        for (int i = 0; i < Game.currentPlayer.cards.Count; i++)
-        {
-            GameObject button = Instantiate(buttonTemplate) as GameObject;
-            for (int y = 0; y < Game.board.Length; y++)
-            {
-                if (Game.board[y].id == Game.currentPlayer.cards[i])
-                {
-                    cur = Game.board[y];
-                }
-            }
-            button.SetActive(true);
-            clones.Add(button);
-            button.GetComponent<ButtonListButton>().SetText("card id " + Game.currentPlayer.cards[i], Game.currentPlayer.cards[i],cur);
-
-            button.transform.SetParent(buttonTemplate.transform.parent, false);
-        }
-    }
+    
+    
     void OnEnable()
     {
         parent.GetComponent<Text>().text = "Player " + Game.currentPlayer.id + "'s Cards";
@@ -46,16 +27,19 @@ public class ButtonListControl : MonoBehaviour
                 if (Game.board[y].id == Game.currentPlayer.cards[i])
                 {
                     cur = Game.board[y];
+
                 }
             }
-            button.SetActive(true);
-            clones.Add(button);
-            clones.Add(button);
-            button.GetComponent<ButtonListButton>().SetText("card id " + Game.currentPlayer.cards[i], Game.currentPlayer.cards[i],cur);
+                
+                button.SetActive(true);
+           
+                clones.Add(button);
+                button.GetComponent<ButtonListButton>().SetText("card id " + Game.currentPlayer.cards[i], Game.currentPlayer.cards[i], cur);
 
-            button.transform.SetParent(buttonTemplate.transform.parent, false);
+                button.transform.SetParent(buttonTemplate.transform.parent, false);
+            }
         }
-    }
+    
 
     void OnDisable()
     {
