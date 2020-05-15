@@ -11,11 +11,11 @@ public class Buy : MonoBehaviour
     public GameObject noBut;
     public GameObject yesBut;
     public GameObject contBut;
-    
-    public int choiceMade= 0;
+
+    public int choiceMade = 0;
     public int tempChoiceMade = 0;
     public bool run = false;
-
+    //GameObjects on visual card 
     public GameObject cardPan;
     public GameObject backCol;
     public Text cardTitle;
@@ -30,15 +30,14 @@ public class Buy : MonoBehaviour
 
     public void Start()
     {
-        box.SetActive(false); // or false
-       // Debug.Log("buy intialised");
+        box.SetActive(false);
         enabled = false;
     }
 
     void OnDisable()
     {
-       // Debug.Log("buy disabled");
-        box.SetActive(false); // or false
+
+        box.SetActive(false);
         noBut.SetActive(false);
         yesBut.SetActive(false);
         contBut.SetActive(false);
@@ -50,23 +49,20 @@ public class Buy : MonoBehaviour
 
     void OnEnable()
     {
-        
-        //Debug.Log("buy enabled");
+        //makes panels visible
         choiceMade = 0;
         texty.GetComponent<Text>().text = "Would you like to buy this property?";
         box.SetActive(true); // or false
         noBut.SetActive(true);
         yesBut.SetActive(true);
         cardPan.SetActive(true);
-        //Debug.Log("pausing game");
-        //Time.timeScale = 0f;
         if (run == false)
         {
             Time.timeScale = 1f;
             run = true;
-           // Debug.Log("unpausing game");
-        }
 
+        }
+        //sets up card on screen with information about the tile
         cardTitle.GetComponent<Text>().text = Game.board[Game.currentPlayer.getPosition()].title;
         cost.GetComponent<Text>().text = "£" + Game.board[Game.currentPlayer.getPosition()].originalPrice;
         nohouses.GetComponent<Text>().text = "£" + Game.board[Game.currentPlayer.getPosition()].noHouse;
@@ -79,9 +75,12 @@ public class Buy : MonoBehaviour
 
         backCol.GetComponent<Image>().color = TileStreet.colorFromString(Game.board[Game.currentPlayer.getPosition()].color);
         backCol.SetActive(true);
-
+        if (Game.board[Game.currentPlayer.getPosition()].color == "Station" || Game.board[Game.currentPlayer.getPosition()].color == "Utilities")
+        {
+            nohouses.GetComponent<Text>().text = "";
+        }
     }
-
+    //finds the costs of upgrading based on the colour 
     public int UpgradeCost(int i)
     {
         int holder = 0;
@@ -104,14 +103,14 @@ public class Buy : MonoBehaviour
         return holder;
     }
 
-
+    //called when "no" button pressed
     public void NoButPress()
     {
         texty.GetComponent<Text>().text = "To Auction!";
         tempChoiceMade = 1;
-        
-    }  
 
+    }
+    //called when "yes" button pressed, checks if player has enough money
     public void YesButPress()
     {
         if (Game.currentPlayer.balance >= int.Parse(Game.board[Game.currentPlayer.getPosition()].originalPrice))
@@ -125,14 +124,14 @@ public class Buy : MonoBehaviour
         }
     }
     public void ContButPress()
-    {       
+    {
         choiceMade = tempChoiceMade;
     }
 
-    // Update is called once per frame
+    //deactivates buttons after being pressed
     void Update()
     {
-         if (tempChoiceMade >= 1)
+        if (tempChoiceMade >= 1)
         {
             contBut.SetActive(true);
             noBut.SetActive(false);

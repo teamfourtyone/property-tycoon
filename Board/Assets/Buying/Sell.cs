@@ -10,15 +10,12 @@ public class Sell : MonoBehaviour
     public GameObject panel;
     public bool isEnabled = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //opens the properties menu 
 
     public void onButClick()
     {
-        if (isEnabled == false){
+        if (isEnabled == false)
+        {
             panel.SetActive(true);
             isEnabled = true;
         }
@@ -28,7 +25,6 @@ public class Sell : MonoBehaviour
             isEnabled = false;
         }
 
-        //cardP.GetComponent<ButtonListControl>().enabled = true;
     }
-   
+
 }

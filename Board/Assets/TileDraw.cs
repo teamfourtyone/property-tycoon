@@ -17,7 +17,7 @@ public class TileDraw : Tile
         Debug.Log("Player " + Game.currentPlayer.id + " landed on card draw tile " + this.id + ".");
         go = GameObject.Find("GameController");
         go.GetComponent<Cont>().enabled = true;
-        go.GetComponent<Cont>().SetText("Player " + Game.currentPlayer.id + " Landed On Card Draw Tile" , Cont.Type.draw);
+        go.GetComponent<Cont>().SetText("Player " + Game.currentPlayer.id + " Landed On Card Draw Tile", Cont.Type.draw);
         // 
     }
     public void nextp()

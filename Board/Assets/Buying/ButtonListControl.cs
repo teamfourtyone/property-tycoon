@@ -13,8 +13,8 @@ public class ButtonListControl : MonoBehaviour
     public List<GameObject> clones = new List<GameObject>();
     public Tile cur;
 
-    
-    
+
+    // initialises a button for every tile owned by a player
     void OnEnable()
     {
         parent.GetComponent<Text>().text = "Player " + Game.currentPlayer.id + "'s Cards";
@@ -30,16 +30,16 @@ public class ButtonListControl : MonoBehaviour
 
                 }
             }
-                
-                button.SetActive(true);
-           
-                clones.Add(button);
-                button.GetComponent<ButtonListButton>().SetText("card id " + Game.currentPlayer.cards[i], Game.currentPlayer.cards[i], cur);
 
-                button.transform.SetParent(buttonTemplate.transform.parent, false);
-            }
+            button.SetActive(true);
+
+            clones.Add(button);
+            button.GetComponent<ButtonListButton>().SetText("card id " + Game.currentPlayer.cards[i], Game.currentPlayer.cards[i], cur);
+
+            button.transform.SetParent(buttonTemplate.transform.parent, false);
         }
-    
+    }
+
 
     void OnDisable()
     {
@@ -49,9 +49,5 @@ public class ButtonListControl : MonoBehaviour
         }
     }
 
-    void GenButtons()
-    {
-
-    }
 }
 

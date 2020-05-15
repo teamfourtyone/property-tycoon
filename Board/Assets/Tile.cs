@@ -17,44 +17,46 @@ public abstract class Tile : MonoBehaviour
     public string oneHotel;//
 
     public int owner;
-  public int id;
+    public int id;
 
-  public bool mortgaged =false;
+    public bool mortgaged = false;
     public string color; //
 
 
-  public GameObject tileObject;
-  public GameObject textObject;
+    public GameObject tileObject;
+    public GameObject textObject;
 
 
-  public abstract void landingAction();
+    public abstract void landingAction();
 
-    //
-  public void buy()
-  {
+    //assigns tile to current player, ajusts their balance and variables accordingly
+    public void buy()
+    {
         Game.board[Game.currentPlayer.getPosition()].ResetPrice();
         Debug.Log(Game.currentPlayer + " buying " + id);
         Game.currentPlayer.balance -= int.Parse(Game.board[Game.currentPlayer.getPosition()].originalPrice);
-    Game.board[Game.currentPlayer.getPosition()].owner = Game.currentPlayer.id;
-    Game.currentPlayer.cards.Add(Game.board[Game.currentPlayer.getPosition()].id); //holds ids
-    for (int i = 0; i < Game.currentPlayer.cards.Count; i++)
-    {
-      Debug.Log("printing cards" + Game.currentPlayer.cards[i].GetType());
+        Game.board[Game.currentPlayer.getPosition()].owner = Game.currentPlayer.id;
+        Game.currentPlayer.cards.Add(Game.board[Game.currentPlayer.getPosition()].id); //holds ids
+        for (int i = 0; i < Game.currentPlayer.cards.Count; i++)
+        {
+            Debug.Log("printing cards" + Game.currentPlayer.cards[i].GetType());
+        }
     }
-  }
 
-  public void Auctbuy(int otherId,int winBid)
-  {
+    //assigns tile to the auction winner, ajusts their balance and variables accordingly
+    public void Auctbuy(int otherId, int winBid)
+    {
         Game.board[Game.currentPlayer.getPosition()].ResetPrice();
         Debug.Log(Game.players[otherId].id + " buying from Auction card:" + Game.currentPlayer.getPosition());
-    Game.board[Game.currentPlayer.getPosition()].owner = Game.players[otherId].id;
+        Game.board[Game.currentPlayer.getPosition()].owner = Game.players[otherId].id;
         Game.players[otherId].balance -= winBid;
-        Game.players[otherId].cards.Add(Game.board[Game.currentPlayer.getPosition()].id); //holds ids
-    
+        Game.players[otherId].cards.Add(Game.board[Game.currentPlayer.getPosition()].id);
 
-  }
-  public void ResetPrice()
-  {
+
+    }
+    //when called uses the variable of the tile class to calculate what the current rent of the tile should be
+    public void ResetPrice()
+    {
         if (color != "Station")
         {
             if (color != "Utilities")
@@ -93,15 +95,64 @@ public abstract class Tile : MonoBehaviour
                     curPrice = 0;
                 }
             }
+            else
+            {
+                int hold = 0;
+                bool sameOwn = false;
+                int sameid = 99;
+                for (int i = 0; i < Game.board.Length; i++)
+                {
+                    if (Game.board[i].color == "Utilities" && Game.board[i].owner == owner && Game.board[i].id != id && Game.board[i].owner != 99)
+                    {
+                        sameOwn = true;
+                    }
+                }
+
+                if (sameOwn)
+                {
+                    curPrice = 10 * (Game.currentPlayer.dice1 + Game.currentPlayer.dice1);
+                }
+                else
+                {
+                    curPrice = 4 * (Game.currentPlayer.dice1 + Game.currentPlayer.dice1);
+                }
+
+
+            }
+        }
+
+        else
+        {
+            int hold = 0;
+            for (int i = 0; i < Game.board.Length; i++)
+            {
+                if (Game.board[i].color == "Station")
+                {
+                    if (Game.board[i].owner == owner && Game.board[i].id != id && Game.board[i].owner != 99)
+                    {
+                        hold++;
+                    }
+                }
+            }
+            if (hold == 1)
+            {
+                curPrice = 25;
+            }
+            if (hold == 2)
+            {
+                curPrice = 50;
+            }
+            if (hold == 3)
+            {
+                curPrice = 100;
+            }
+            if (hold == 4)
+            {
+                curPrice = 200;
+            }
         }
     }
 
 
-  public void Degrade()
-  {
-
-  }
-    
-       
-    }
+}
 

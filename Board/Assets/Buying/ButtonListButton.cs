@@ -27,18 +27,18 @@ public class ButtonListButton : MonoBehaviour
 
     public Tile tile;
 
-   
-   
+
+
 
     public void SetText(string textString, int id, Tile tile)
     {
         myText.text = tile.title;
         cardId = tile.id;
         this.tile = tile;
-     
+
 
     }
-
+    //onClick method calls the mort script to handle upgarde/selling
     public void onClick()
     {
         mo.SetActive(true);
@@ -46,24 +46,30 @@ public class ButtonListButton : MonoBehaviour
         mo.GetComponent<Mort>().setParam(cardId);
         panel.SetActive(false);
     }
+    //when the mouse hovers over the button will display tile info
     public void OnMouseOver()
     {
         cardTitle.GetComponent<Text>().text = tile.title;
-        rent.GetComponent<Text>().text = "£"+tile.curPrice;
-        numh.GetComponent<Text>().text = ""+ tile.numHouses;
+        rent.GetComponent<Text>().text = "£" + tile.curPrice;
+        numh.GetComponent<Text>().text = "" + tile.numHouses;
         cost.GetComponent<Text>().text = "£" + tile.originalPrice;
-        nohouses.GetComponent<Text>().text = "£" + tile.noHouse;       
+        nohouses.GetComponent<Text>().text = "£" + tile.noHouse;
         oneh.GetComponent<Text>().text = "£" + tile.oneHouse;
         twoh.GetComponent<Text>().text = "£" + tile.twoHouse;
         treeh.GetComponent<Text>().text = "£" + tile.threeHouse;
         fourh.GetComponent<Text>().text = "£" + tile.fourHouse;
         oneho.GetComponent<Text>().text = "£" + tile.oneHotel;
-         upc.GetComponent<Text>().text = "£" + UpgradeCost(cardId);
-     
-        backCol.GetComponent<Image>().color =  TileStreet.colorFromString(tile.color);
-        backCol.SetActive(true);
-    }
+        upc.GetComponent<Text>().text = "£" + UpgradeCost(cardId);
 
+        backCol.GetComponent<Image>().color = TileStreet.colorFromString(tile.color);
+        backCol.SetActive(true);
+
+        if (Game.board[Game.currentPlayer.getPosition()].color == "Station" || Game.board[Game.currentPlayer.getPosition()].color == "Utilities")
+        {
+            nohouses.GetComponent<Text>().text = "";
+        }
+    }
+    //removes info if mouse hovers off
     public void OnMouseExit()
     {
 
@@ -77,14 +83,14 @@ public class ButtonListButton : MonoBehaviour
         treeh.GetComponent<Text>().text = "";
         fourh.GetComponent<Text>().text = "";
         oneho.GetComponent<Text>().text = "";
-         upc.GetComponent<Text>().text = "" ;
+        upc.GetComponent<Text>().text = "";
         backCol.SetActive(false);
     }
-    
+
     public int UpgradeCost(int i)
     {
         int holder = 0;
-        if(Game.board[i].color == "Brown" || Game.board[i].color == "Blue")
+        if (Game.board[i].color == "Brown" || Game.board[i].color == "Blue")
         {
             holder = 50;
         }

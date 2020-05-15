@@ -23,7 +23,7 @@ public class Mort : MonoBehaviour
     public string colour;
     public bool ownAll;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         enabled = false;
@@ -31,14 +31,14 @@ public class Mort : MonoBehaviour
 
     void OnDisable()
     {
- 
-        box.SetActive(false); 
+
+        box.SetActive(false);
         enabled = false;
         int hold = 0;
         choiceMade = 0;
         tempChoiceMade = 0;
     }
-
+    //takes tile id as inout so it can search for the tile and get info on num house,colour and owners
     public void setParam(int id)
     {
         this.id = id;
@@ -72,14 +72,14 @@ public class Mort : MonoBehaviour
         {
             ownAll = false;
         }
-        
-              texty.GetComponent<Text>().text = "You have "+ numHouse +" houses on  " + id + "?"; //change to name
+
+        texty.GetComponent<Text>().text = "You have " + numHouse + " houses on  " + id + "?"; //change to name
     }
 
     void OnEnable()
     {
-        choiceMade = 0;       
-        box.SetActive(true); 
+        choiceMade = 0;
+        box.SetActive(true);
         enabled = true;
         contBut.SetActive(false);
         mortBut.SetActive(false);
@@ -89,13 +89,14 @@ public class Mort : MonoBehaviour
         if (run == false)
         {
             Time.timeScale = 1f;
-            run = true;         
+            run = true;
         }
 
     }
 
     public void firstSellButPress()
     {
+        //if house on tile sells the house
         if (numHouse > 0)
         {
             upgradeBut.SetActive(false);
@@ -103,7 +104,6 @@ public class Mort : MonoBehaviour
             contBut.SetActive(true);
             texty.GetComponent<Text>().text = "Selling house on " + id + " for £"; //change to house name
 
-            //change balance NEED PRICE
 
             for (int i = 0; i < Game.board.Length; i++)
             {
@@ -114,9 +114,10 @@ public class Mort : MonoBehaviour
                     Game.board[i].ResetPrice();
                 }
             }
-           
+
 
         }
+        // if no houses bring up new set of questions sell/mortgage
         else
         {
             upgradeBut.SetActive(false);
@@ -125,18 +126,16 @@ public class Mort : MonoBehaviour
             sellBut.SetActive(true);
             texty.GetComponent<Text>().text = "Would you like to Sell or Mortgage " + id + "?"; //change to name
         }
-        
-    }
 
+    }
+    //upgrade only if player owns all tiles of a colour
     public void upgradeButPress()
     {
         if (ownAll == true)
         {
             upgradeBut.SetActive(false);
             firstSellBut.SetActive(false);
-            //pay
             texty.GetComponent<Text>().text = "Buying house on " + id + " for £"; //change to house name
-            //BALANCE + HOUSE COST
             contBut.SetActive(true);
             for (int i = 0; i < Game.board.Length; i++)
             {
@@ -152,24 +151,26 @@ public class Mort : MonoBehaviour
         {
             upgradeBut.SetActive(false);
             firstSellBut.SetActive(false);
-            texty.GetComponent<Text>().text = "You dont own all properties of this colour"; //change to name
+            texty.GetComponent<Text>().text = "You dont own all properties of this colour";
             contBut.SetActive(true);
         }
 
 
     }
+    //mortgages tile, gives half cost to owner
     public void mortButPress()
     {
         for (int i = 0; i < Game.board.Length; i++)
         {
-            if( Game.board[i].id == id)
+            if (Game.board[i].id == id)
             {
                 if (Game.board[i].mortgaged == true)
                 {
                     texty.GetComponent<Text>().text = "You have already mortgaged this property";
                 }
-                else{
-                    texty.GetComponent<Text>().text = "Mortgaged for "+ (int.Parse(Game.board[i].originalPrice) / 2);
+                else
+                {
+                    texty.GetComponent<Text>().text = "Mortgaged for " + (int.Parse(Game.board[i].originalPrice) / 2);
                     Game.currentPlayer.balance += (int.Parse(Game.board[i].originalPrice) / 2);
                     Game.board[i].mortgaged = true;
                     tempChoiceMade = 1;
@@ -178,6 +179,7 @@ public class Mort : MonoBehaviour
             }
         }
     }
+    //sells tile removes owner and gives them cost or half if already mortgaged
     public void sellButPress()
     {
         for (int i = 0; i < Game.board.Length; i++)
@@ -186,7 +188,7 @@ public class Mort : MonoBehaviour
             {
                 if (Game.board[i].mortgaged)
                 {
-                    texty.GetComponent<Text>().text = "You have sold this property for " + (int.Parse(Game.board[i].originalPrice)/2);
+                    texty.GetComponent<Text>().text = "You have sold this property for " + (int.Parse(Game.board[i].originalPrice) / 2);
                     Game.currentPlayer.balance += (int.Parse(Game.board[i].originalPrice) / 2);
                     Game.board[i].owner = 99;
                     Game.board[i].mortgaged = false;
@@ -197,7 +199,7 @@ public class Mort : MonoBehaviour
                 }
                 else
                 {
-                    texty.GetComponent<Text>().text = "You have sold this property for " + Game.board[i].originalPrice ;
+                    texty.GetComponent<Text>().text = "You have sold this property for " + Game.board[i].originalPrice;
                     Game.currentPlayer.balance += int.Parse(Game.board[i].originalPrice);
                     Game.board[i].owner = 99;
                     Game.board[i].mortgaged = false;
@@ -209,16 +211,14 @@ public class Mort : MonoBehaviour
             }
         }
 
-            }
+    }
     public void contButPress()
     {
         choiceMade = tempChoiceMade;
         enabled = false;
     }
 
-
-        // Update is called once per frame
-        void Update()
+    void Update()
     {
         if (tempChoiceMade >= 1)
         {

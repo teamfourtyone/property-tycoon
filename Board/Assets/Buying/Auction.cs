@@ -12,7 +12,7 @@ public class Auction : MonoBehaviour
     public GameObject confirmBut;
     public GameObject contBut;
     public int count;
-    int[] bidArray = new int[6];  //need to change to curNumOfPlayers
+    int[] bidArray = new int[6];
     public int auctWin;
     public int winBid;
     public bool finished = false;
@@ -21,18 +21,13 @@ public class Auction : MonoBehaviour
     public void Start()
 
     {
-      //  panel.SetActive(false);      
-      //  Debug.Log("auction intialised");
-       // enabled = false;
 
-       // Debug.Log("auction enableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         count = 0;
         enabled = false;
     }
 
     void OnDisable()
     {
-        //Debug.Log("auction diasssableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         heading.SetActive(false); // or false
         entry.SetActive(false); // or false
         confirmBut.SetActive(false); // or false
@@ -40,11 +35,10 @@ public class Auction : MonoBehaviour
         contBut.SetActive(false);
         finished = false;
         tempFinished = false;
-}
+    }
 
     void OnEnable()
     {
-        //Debug.Log("auction enableddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
         count = 0;
         heading.SetActive(true); // or false
         entry.SetActive(true); // or false
@@ -118,7 +112,7 @@ public class Auction : MonoBehaviour
 
     public void ContButPress()
     {
-       finished = tempFinished;
+        finished = tempFinished;
     }
 
     void Update()
@@ -132,5 +126,5 @@ public class Auction : MonoBehaviour
         }
     }
 }
-    
+
 

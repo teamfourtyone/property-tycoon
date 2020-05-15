@@ -10,13 +10,13 @@ public class Cont : MonoBehaviour
     public GameObject contBut;
     public bool confirmed = false;
     public bool run;
-    public enum Type { draw, pay,roll,fu };
+    public enum Type { draw, pay, roll, fu };
     public Type b;
 
     public GameObject cardPan;
     public GameObject backCol;
     public Text cardTitle;
-     public Text rent;
+    public Text rent;
     public Text numh;
     public Text cost;
     public Text nohouses;
@@ -25,8 +25,8 @@ public class Cont : MonoBehaviour
     public Text treeh;
     public Text fourh;
     public Text oneho;
- public Text own;
-   
+    public Text own;
+
 
 
     public void Start()
@@ -56,13 +56,14 @@ public class Cont : MonoBehaviour
         }
 
     }
-
-    public void SetText(string a,Type b)
+    //requires text to be displayes as input, as well as context of continue box it is displaying
+    public void SetText(string a, Type b)
     {
         texty.GetComponent<Text>().text = a;
         this.b = b;
 
-        if( b == Type.pay)
+        //if a player is paying another will display that tiles info
+        if (b == Type.pay)
         {
             cardPan.SetActive(true);
             cardTitle.GetComponent<Text>().text = Game.board[Game.currentPlayer.getPosition()].title;
@@ -79,12 +80,16 @@ public class Cont : MonoBehaviour
 
             backCol.GetComponent<Image>().color = TileStreet.colorFromString(Game.board[Game.currentPlayer.getPosition()].color);
             backCol.SetActive(true);
+            if (Game.board[Game.currentPlayer.getPosition()].color == "Station" || Game.board[Game.currentPlayer.getPosition()].color == "Utilities")
+            {
+                nohouses.GetComponent<Text>().text = "";
+            }
 
         }
     }
 
 
-        public void ContButPress()
+    public void ContButPress()
     {
         confirmed = true;
         cardPan.SetActive(false);
@@ -112,9 +117,5 @@ public class Cont : MonoBehaviour
         return holder;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-     
-    }
+
 }
